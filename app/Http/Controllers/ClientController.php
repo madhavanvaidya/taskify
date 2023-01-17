@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Project;
+use App\Models\Task;
 
 class ClientController extends Controller
 {
@@ -71,7 +73,8 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::find($id);
-        return view('clients.client_profile', ['client'=>$client]);
+        $projects = Project::where('client_id', 'like', '%'.$id.'%')->get();
+        return view('clients.client_profile', ['client'=>$client, 'projects' => $projects]);
     }
 
     /**

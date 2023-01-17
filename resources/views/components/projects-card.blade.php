@@ -36,6 +36,9 @@
                             @php
                             $clients = "App\Models\Client";
                             $client = $clients::find($id);
+                            if ($client==NULL){
+                                continue;
+                            }
                             @endphp
                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up" title="{{$client->first_name}} {{$client->last_name}}">
                                 <img src="{{asset('storage/' . $client->profile)}}" alt="Avatar" class="rounded-circle" />
@@ -68,9 +71,32 @@
                         <a href="/projects/edit/{{$project->id}}">
                             <i class='bx bx-edit-alt mx-1'></i>
                         </a>
-                        <a href="/projects/destroy/{{$project->id}}">
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal">
                             <i class='bx bx-trash mx-1'></i>
-                        </a>
+                        </button>
+
+
+                        <div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel2">Warning!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this project?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <a href="/projects/destroy/{{$project->id}}">
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
