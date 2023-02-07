@@ -187,7 +187,7 @@
                             <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
                         </div>
                     </div>
-                    <form id="formAccountDeactivation" action="/destroy/{{auth()->user()->id}}" method="POST">
+                    <form id="formAccountDeactivation" action="/users/destroy/{{auth()->user()->id}}" method="POST">
                         @csrf
                         @method('DELETE')
 

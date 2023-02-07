@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Project;
@@ -16,7 +17,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::latest()->paginate(6);
+        $clients = Client::all();
         return view('clients.clients', ['clients' => $clients]);
     }
 
@@ -73,8 +74,7 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::find($id);
-        $projects = Project::where('client_id', 'like', '%'.$id.'%')->get();
-        return view('clients.client_profile', ['client'=>$client, 'projects' => $projects]);
+        return view('clients.client_profile', ['client' => $client]);
     }
 
     /**
@@ -130,5 +130,44 @@ class ClientController extends Controller
 
 
         return back()->with('message', 'Client deleted Successfully!');
+    }
+
+
+
+    public function list()
+    {
+        $clients = Client::query()
+                ->when(FacadesRequest::input("search"), function ($query, $search) {
+                    $query->where("first_name", "like", "%{$search}%")
+                        ->orWhere("last_name", "like", "%{$search}%")
+                        ->orWhere("role", "like", "%{$search}%")
+                        ->orWhere("id", "like", "%{$search}%");
+                })
+                ->when(request("sort"), function ($query, $field) {
+                    $query->orderBy($field, (request("order")));
+                })
+                // ->get();
+                ->latest()
+                ->paginate(request("limit"))
+
+            // ->withQueryString()
+            ->through(fn ($client) => [
+                'id' => $client->id,
+                'first_name' => $client->first_name,
+                'last_name' => $client->last_name,
+                'company' => $client->company,
+                'email' => $client->email,
+                'phone' => $client->phone,
+                'profile' => "<div class='avatar avatar-md pull-up' title='".$client->first_name." ".$client->last_name."'>
+                                <a href='/clients/profile/show/".$client->id."'>
+                                <img src='".asset('storage/'.$client->profile)."' alt='Avatar' class='rounded-circle'/>
+                                </a>
+                                </div>"
+            ]);
+        
+        return response()->json([
+            "rows" => $clients->items(),
+            "total" => $clients->total(),
+        ]);
     }
 }

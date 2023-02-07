@@ -18,25 +18,20 @@
 
             </div>
 
+            <?php
+            $project = $task->project;
+            ?>
+
             <div class="row">
                 <div class="mb-3">
-                    <label class="form-label" for="project_id">Project</label>
-                    <div class="input-group">
-                        <select class="form-select" id="project_id" name="project_id">
-                            <option value="{{ $task->project_id }}">
-                                @php
-                                $projects_name = "App\Models\Project";
-                                $project_name = $projects_name::find($task->project_id);
-                                @endphp
-
-                                {{$project_name->title}}
-                            </option>
-                            @foreach ($projects as $project)
-                            <option value="{{ $project->id }}">{{ $project->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label for="project_title" class="form-label">Project</label>
+                    <input class="form-control" type="text" id="project_title" name="project_title" placeholder="Enter Title" value="{{ $project->title }}" readonly>
                 </div>
+
+                @error('title')
+                <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                @enderror
+
             </div>
 
             <div class="row">
@@ -99,6 +94,9 @@
                 <div class="mb-3">
                     <label class="form-label" for="user_id">Select Users</label>
                     <div class="input-group">
+                        <?php
+                        $users = $task->project->users;
+                        ?>
                         <select id="" class="form-control js-example-basic-multiple" name="user_id[]" multiple="multiple">
                             @foreach($users as $user)
                             <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>

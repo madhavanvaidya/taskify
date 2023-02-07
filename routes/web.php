@@ -44,6 +44,10 @@ Route::put('/users/update_photo/{user}', [UserController::class, 'update_photo']
 
 Route::delete('/users/destroy/{user}', [UserController::class, 'destroy']);
 
+Route::get('/users/list', [UserController::class, 'list']);
+
+Route::get('/users/task_list/{id}', [UserController::class, 'task_list']);
+
 //---------------------------------------------------------------
 
 Route::get('/clients/show', [ClientController::class, 'index']);
@@ -59,6 +63,8 @@ Route::get('/clients/edit/{id}', [ClientController::class, 'edit']);
 Route::put('/clients/update/{id}', [ClientController::class, 'update']);
 
 Route::get('/clients/destroy/{id}', [ClientController::class, 'destroy']);
+
+Route::get('/clients/list', [ClientController::class, 'list']);
 
 //---------------------------------------------------------------
 
@@ -76,18 +82,24 @@ Route::put('/projects/update/{id}', [ProjectsController::class, 'update']);
 
 Route::get('/projects/destroy/{id}', [ProjectsController::class, 'destroy']);
 
+Route::get('/projects/list', [ProjectsController::class, 'list']);
+
+Route::get('/projects/task_list/{id}', [ProjectsController::class, 'task_list']);
+
 //---------------------------------------------------------------
 
 Route::get('/tasks', [TasksController::class, 'index']);
 
 Route::get('/tasks/information/{id}', [TasksController::class, 'show']);
 
-Route::get('/tasks/create', [TasksController::class, 'create']);
+Route::get('/tasks/create/{id}', [TasksController::class, 'create']);
 
-Route::post('/tasks/store', [TasksController::class, 'store']);
+Route::post('/tasks/store/{id}', [TasksController::class, 'store']);
 
 Route::get('/tasks/edit/{id}', [TasksController::class, 'edit']);
 
 Route::put('/tasks/update/{id}', [TasksController::class, 'update']);
 
 Route::get('/tasks/destroy/{id}', [TasksController::class, 'destroy']);
+
+Route::get('/tasks/list', [TasksController::class, 'list']);

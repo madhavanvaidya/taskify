@@ -24,4 +24,9 @@ class Client extends Model
         'zip',
         'profile'
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
 }

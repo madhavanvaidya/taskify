@@ -89,11 +89,11 @@
 
 
 <!-- projects -->
-<x-projects-card :projects="$projects" :users="$users" />
+<x-projects-card :projects="$projects" />
 <!-- / projects -->
 
 <!-- tasks -->
-<x-tasks-card :projects="$projects" :users="$users" :tasks="$tasks" :clients="$clients" />
+<x-tasks-card :tasks="$tasks" />
 <!-- / tasks -->
 
 @if(Session::has('message'))

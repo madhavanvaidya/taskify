@@ -2,8 +2,8 @@
 @section('content')
 <div class="card m-4">
     <div class="card-body">
-        <h4 class="fw-bold">New Task</h4>
-        <form action="/tasks/store" method="POST">
+        <h4 class="fw-bold">New Task for {{ $project->title }}</h4>
+        <form action="/tasks/store/{{$project->id}}" method="POST">
             @csrf
             <div class="row">
                 <div class="mb-3">
@@ -15,19 +15,6 @@
                 <p class="text-danger text-xs mt-1">{{ $message }}</p>
                 @enderror
 
-            </div>
-
-            <div class="row">
-                <div class="mb-3">
-                    <label class="form-label" for="project_id">Project</label>
-                    <div class="input-group">
-                        <select class="form-select" id="project_id" name="project_id">
-                            @foreach ($projects as $project)
-                            <option value="{{ $project->id }}">{{ $project->title }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
             </div>
 
             <div class="row">
@@ -90,6 +77,9 @@
                     <label class="form-label" for="user_id">Select Users</label>
                     <div class="input-group">
                         <select id="" class="form-control js-example-basic-multiple" name="user_id[]" multiple="multiple">
+                            <?php
+                            $users = $project->users;
+                            ?>
                             @foreach($users as $user)
                             <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
                             @endforeach

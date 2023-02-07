@@ -20,7 +20,24 @@ class Project extends Model
         'client_id',
     ];
 
+    public function scopeFilter($query, array $filters) {
+        if($filters['search_projects'] ?? false) {
+            $query->where('title', 'like', '%' . request('search_projects') . '%')
+                ->orWhere('status', 'like', '%' . request('search_projects') . '%');
+        }
+    }
+
     public function tasks() {
-        return $this->hasMany(Task::class, 'project_id');
+        return $this->hasMany(Task::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class);
     }
 }

@@ -14,7 +14,7 @@
 
             <a href="#" target="_blank" class="footer-link me-4">Documentation</a>
 
-            <a href="#" target="_blank" class="footer-link me-4">Support</a>
+            <a href="#" target="_blank" class="footer-link me-2">Support</a>
         </div>
     </div>
 </footer>
