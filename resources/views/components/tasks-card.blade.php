@@ -7,13 +7,13 @@
         <h5 class="card-header">No tasks Found!</h5>
         @else
         <div class="mx-2 mb-2">
-        <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/tasks/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
+        <table id="table" data-toggle="table" data-query-params="queryParams" data-loading-template="loadingTemplate" data-url="/tasks/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
                 <thead>
                     <tr>
                         <th data-sortable="true" data-field="title">Task</th>
-                        <th data-sortable="true" data-field="project">Project</th>
-                        <th data-sortable="true" data-field="clients" data-formatter="clientFormatter">Clients</th>
-                        <th data-sortable="true" data-field="users" data-formatter="userFormatter">Users</th>
+                        <th data-field="project">Project</th>
+                        <th data-field="clients" data-formatter="clientFormatter">Clients</th>
+                        <th data-field="users" data-formatter="userFormatter">Users</th>
                         <th data-sortable="true" data-field="status">Status</th>
                         <th data-formatter="actionFormatter">Actions</th>
                     </tr>
@@ -74,6 +74,16 @@
 
     function userFormatter(value, row, index) {
         return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">'+row.users]
+    }
+
+    function queryParams(p) {
+        return {
+            limit: p.limit,
+            sort: p.sort,
+            order: p.order,
+            offset: p.offset,
+            search: p.search
+        };
     }
 </script>
 

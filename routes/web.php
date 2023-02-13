@@ -46,6 +46,8 @@ Route::delete('/users/destroy/{user}', [UserController::class, 'destroy']);
 
 Route::get('/users/list', [UserController::class, 'list']);
 
+Route::get('/users/project_list/{id}', [UserController::class, 'project_list']);
+
 Route::get('/users/task_list/{id}', [UserController::class, 'task_list']);
 
 //---------------------------------------------------------------
@@ -65,6 +67,8 @@ Route::put('/clients/update/{id}', [ClientController::class, 'update']);
 Route::get('/clients/destroy/{id}', [ClientController::class, 'destroy']);
 
 Route::get('/clients/list', [ClientController::class, 'list']);
+
+Route::get('/clients/project_list/{id}', [ClientController::class, 'project_list']);
 
 //---------------------------------------------------------------
 

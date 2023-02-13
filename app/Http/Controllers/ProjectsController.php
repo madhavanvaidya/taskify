@@ -35,8 +35,8 @@ class ProjectsController extends Controller
     {
         $users = User::all();
         $clients = Client::all();
-        
-        return view('projects.create_project', ['users'=>$users, 'clients'=>$clients]);
+
+        return view('projects.create_project', ['users' => $users, 'clients' => $clients]);
     }
 
     /**
@@ -57,10 +57,10 @@ class ProjectsController extends Controller
             'description' => ['required'],
         ]);
 
-        
+
         $userIds = $request->input('user_id');
         $clientIds = $request->input('client_id');
-        
+
         $new_project = Project::create($formFields);
         $project_id = $new_project->id;
         $project = Project::find($project_id);
@@ -68,7 +68,6 @@ class ProjectsController extends Controller
         $project->clients()->attach($clientIds);
 
         return redirect('/projects')->with('message', 'Project created Successfully!');
-        
     }
 
     /**
@@ -81,7 +80,6 @@ class ProjectsController extends Controller
     {
         $project = Project::find($id);;
         return view('projects.project_information', ['project' => $project]);
-
     }
 
     /**
@@ -143,19 +141,19 @@ class ProjectsController extends Controller
 
     public function list()
     {
-        $projects = Project::query()
-            ->when(FacadesRequest::input("search"), function ($query, $search) {
-                $query->where("title", "like", "%{$search}%")
-                    ->orWhere("status", "like", "%{$search}%")
-                    ->orWhere("clients", "like", "%{$search}%")
-                    ->orWhere("users", "like", "%{$search}%")
-                    ->orWhere("id", "like", "%{$search}%");
-            })
-            ->when(request("sort"), function ($query, $field) {
-                $query->orderBy($field, (request("order")));
-            })
-            // ->get();
-            ->latest()
+        $search = request('search');
+        $sort = (request('sort')) ? request('sort') : "id";
+        $order = (request('order')) ? request('order') : "DESC";
+
+        $projects = Project::when($search, function ($query) use ($search) {
+            return $query->where('title', 'like', '%' . $search . '%')
+                ->orWhere('status', 'like', '%' . $search . '%')
+                ->orWhere('id', 'like', '%' . $search . '%');
+        });
+
+        $totalprojects = $projects->count();
+
+        $projects = $projects->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(
                 fn ($project) => [
@@ -184,29 +182,30 @@ class ProjectsController extends Controller
 
         return response()->json([
             "rows" => $projects->items(),
-            "total" => $projects->total(),
+            "total" => $totalprojects,
         ]);
     }
 
 
 
-    public function task_list($id)
+    public function task_list($project_id)
     {
-        $tasks = Task::query()
-        ->where("project_id", $id)
-            ->when(FacadesRequest::input("search"), function ($query, $search) {
-                $query->where("title", "like", "%{$search}%")
-                    ->orWhere("status", "like", "%{$search}%")
-                    ->orWhere("project", "like", "%{$search}%")
-                    ->orWhere("clients", "like", "%{$search}%")
-                    ->orWhere("users", "like", "%{$search}%")
-                    ->orWhere("id", "like", "%{$search}%");
-            })
-            ->when(request("sort"), function ($query, $field) {
-                $query->orderBy($field, (request("order")));
-            })
-            // ->get();
-            ->latest()
+
+        $search = request('search');
+        $sort = (request('sort')) ? request('sort') : "tasks.id";
+        $order = (request('order')) ? request('order') : "DESC";
+
+        $tasks = Project::find($project_id)->tasks();
+        if ($search) {
+            $tasks = $tasks->where(function ($query) use ($search) {
+                $query->where('tasks.title', 'like', '%' . $search . '%')
+                    ->orWhere('tasks.status', 'like', '%' . $search . '%');
+            });
+        }
+
+        $totalTasks = $tasks->count();
+
+        $tasks = $tasks->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(
                 fn ($task) => [
@@ -218,6 +217,8 @@ class ProjectsController extends Controller
                     'status' => "<span class='badge bg-label-" . config('taskhub.task_status_labels')[$task->status] . " me-1'>" . $task->status . "</span>",
                 ]
             );
+
+
         foreach ($tasks->items() as $task => $collection) {
             foreach ($collection['clients'] as $i => $client) {
                 $collection['clients'][$i] = "<li class='avatar avatar-sm pull-up'  title='" . $client['first_name'] . " " . $client['last_name'] . "'>
@@ -234,10 +235,11 @@ class ProjectsController extends Controller
             };
         }
 
+
+
         return response()->json([
             "rows" => $tasks->items(),
-            "total" => $tasks->total(),
+            "total" => $totalTasks,
         ]);
     }
-
 }

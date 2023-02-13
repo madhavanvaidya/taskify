@@ -24,17 +24,10 @@
 
                             <label class="form-label" for="start_date">Users</label>
                             <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                @php
-                                $uid = explode(',', $task->user_id)
-                                @endphp
-                                @foreach($uid as $id)
-                                @php
-                                $users = "App\Models\User";
-                                $user = $users::find($id);
-                                if ($user==NULL){
-                                continue;
-                                }
-                                @endphp
+                                <?php
+                                $users = $task->users;
+                                ?>
+                                @foreach ($users as $user)
                                 <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-lg pull-up mx-1" title="{{$user->first_name}} {{$user->last_name}}">
                                     <img src="{{asset('storage/' . $user->photo)}}" alt="Avatar" class="rounded-circle" />
                                 </li>
@@ -49,8 +42,7 @@
                             <label class="form-label" for="project">project</label>
                             <div class="input-group input-group-merge">
                                 @php
-                                $projects = "App\Models\Project";
-                                $project = $projects::find($task->project_id);
+                                $project = $task->project;
                                 @endphp
                                 <input class="form-control px-2" type="text" id="project" placeholder="" value="{{$project->title}}" readonly="">
                             </div>
@@ -88,7 +80,7 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="status">Status</label>
                             <div class="input-group input-group-merge">
-                                <input class="form-control" type="text" id="status" placeholder="" value="{{$task->status}}" readonly="">
+                                <span class='badge bg-label-{{config("taskhub.task_status_labels")[$task->status]}} me-1'> {{$task->status}}</span>
                             </div>
                         </div>
                     </div>

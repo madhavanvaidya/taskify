@@ -170,24 +170,26 @@ class UserController extends Controller
     public function display($id)
     {
         $user = User::find($id);
-        $projects = $user->projects;
-        return view('users.user_profile', ['user' => $user, 'projects' => $projects]);
+        return view('users.user_profile', ['user' => $user]);
     }
 
     public function list()
     {
-        $users = User::query()
-            ->when(FacadesRequest::input("search"), function ($query, $search) {
-                $query->where("first_name", "like", "%{$search}%")
-                    ->orWhere("last_name", "like", "%{$search}%")
-                    ->orWhere("role", "like", "%{$search}%")
-                    ->orWhere("id", "like", "%{$search}%");
-            })
-            ->when(request("sort"), function ($query, $field) {
-                $query->orderBy($field, (request("order")));
-            })
-            // ->get();
-            ->latest()
+
+        $search = request('search');
+        $sort = (request('sort')) ? request('sort') : "id";
+        $order = (request('order')) ? request('order') : "DESC";
+
+        $users = User::when($search, function ($query) use ($search) {
+            return $query->where('first_name', 'like', '%' . $search . '%')
+            ->orWhere('last_name', 'like', '%' . $search . '%')
+            ->orWhere('role', 'like', '%' . $search . '%')
+            ->orWhere('id', 'like', '%' . $search . '%');
+        });
+
+            $totalusers = $users->count();
+
+            $users = $users->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(fn ($user) => [
                 'id' => $user->id,
@@ -205,25 +207,29 @@ class UserController extends Controller
 
         return response()->json([
             "rows" => $users->items(),
-            "total" => $users->total(),
+            "total" => $totalusers,
         ]);
     }
 
 
-
-    public function task_list($id)
+    public function task_list($user_id)
     {
-        $tasks = Task::query()
-            ->when(FacadesRequest::input("search"), function ($query, $search) {
-                $query->where("title", "like", "%{$search}%")
-                    ->orWhere("status", "like", "%{$search}%")
-                    ->orWhere("id", "like", "%{$search}%");
-            })
-            ->when(request("sort"), function ($query, $field) {
-                $query->orderBy($field, (request("order")));
-            })
-            // ->get();
-            ->latest()
+
+        $search = request('search');
+        $sort = (request('sort')) ? request('sort') : "tasks.id";
+        $order = (request('order')) ? request('order') : "DESC";
+
+        $tasks = User::find($user_id)->tasks();
+            if ($search) {
+                $tasks = $tasks->where(function($query) use ($search) {
+                    $query->where('tasks.title', 'like', '%' . $search . '%')
+                          ->orWhere('tasks.status', 'like', '%' . $search . '%');
+                });
+            }
+
+            $totalTasks = $tasks->count();
+
+            $tasks = $tasks->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(
                 fn ($task) => [
@@ -236,6 +242,7 @@ class UserController extends Controller
                 ]
             );
 
+            
         foreach ($tasks->items() as $task => $collection) {
             foreach ($collection['clients'] as $i => $client) {
                 $collection['clients'][$i] = "<li class='avatar avatar-sm pull-up'  title='" . $client['first_name'] . " " . $client['last_name'] . "'>
@@ -252,9 +259,69 @@ class UserController extends Controller
             };
         }
 
+
+
         return response()->json([
             "rows" => $tasks->items(),
-            "total" => $tasks->total(),
+            "total" => $totalTasks,
+        ]);
+    }
+
+
+
+
+
+    public function project_list($user_id)
+    {
+
+        $search = request('search');
+        $sort = (request('sort')) ? request('sort') : "projects.id";
+        $order = (request('order')) ? request('order') : "DESC";
+
+        $projects = User::find($user_id)->projects();
+            if ($search) {
+                $projects = $projects->where(function($query) use ($search) {
+                    $query->where('projects.title', 'like', '%' . $search . '%')
+                          ->orWhere('projects.status', 'like', '%' . $search . '%');
+                });
+            }
+
+            $totalprojects = $projects->count();
+
+            $projects = $projects->orderBy($sort, $order)
+            ->paginate(request("limit"))
+            ->through(
+                fn ($project) => [
+                    'id' => $project->id,
+                    'title' => "<a href='/projects/information/" . $project->id . "'><strong>" . $project->title . "</strong></a>",
+                    'users' => $project->users,
+                    'clients' => $project->clients,
+                    'status' => "<span class='badge bg-label-" . config('taskhub.project_status_labels')[$project->status] . " me-1'>" . $project->status . "</span>",
+                ]
+            );
+
+            
+        foreach ($projects->items() as $project => $collection) {
+            foreach ($collection['clients'] as $i => $client) {
+                $collection['clients'][$i] = "<li class='avatar avatar-sm pull-up'  title='" . $client['first_name'] . " " . $client['last_name'] . "'>
+                    <img src='" . asset('storage/' . $client['profile']) . "' alt='Avatar' class='rounded-circle' />
+                </li>";
+            };
+        }
+
+        foreach ($projects->items() as $project => $collection) {
+            foreach ($collection['users'] as $i => $user) {
+                $collection['users'][$i] = "<li class='avatar avatar-sm pull-up'  title='" . $user['first_name'] . " " . $user['last_name'] . "'>
+                    <img src='" . asset('storage/' . $user['photo']) . "' alt='" . $user['first_name'] . " " . $user['last_name'] . "' class='rounded-circle' />
+                </li>";
+            };
+        }
+
+
+
+        return response()->json([
+            "rows" => $projects->items(),
+            "total" => $totalprojects,
         ]);
     }
 }

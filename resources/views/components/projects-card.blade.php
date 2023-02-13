@@ -1,4 +1,3 @@
-@props(['projects'])
 <!-- projects -->
 
 <div class="card mx-4 my-4">

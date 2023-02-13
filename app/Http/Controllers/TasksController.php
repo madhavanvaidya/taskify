@@ -126,20 +126,19 @@ class TasksController extends Controller
 
     public function list()
     {
-        $tasks = Task::query()
-            ->when(FacadesRequest::input("search"), function ($query, $search) {
-                $query->where("title", "like", "%{$search}%")
-                    ->orWhere("status", "like", "%{$search}%")
-                    ->orWhere("project", "like", "%{$search}%")
-                    ->orWhere("clients", "like", "%{$search}%")
-                    ->orWhere("users", "like", "%{$search}%")
-                    ->orWhere("id", "like", "%{$search}%");
-            })
-            ->when(request("sort"), function ($query, $field) {
-                $query->orderBy($field, (request("order")));
-            })
-            // ->get();
-            ->latest()
+        $search = request('search');
+        $sort = (request('sort')) ? request('sort') : "id";
+        $order = (request('order')) ? request('order') : "DESC";
+
+        $tasks = Task::when($search, function ($query) use ($search) {
+            return $query->where('title', 'like', '%' . $search . '%')
+            ->orWhere('status', 'like', '%' . $search . '%')
+            ->orWhere('id', 'like', '%' . $search . '%');
+        });
+
+            $totaltasks = $tasks->count();
+
+            $tasks = $tasks->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(
                 fn ($task) => [
@@ -169,7 +168,7 @@ class TasksController extends Controller
 
         return response()->json([
             "rows" => $tasks->items(),
-            "total" => $tasks->total(),
+            "total" => $totaltasks,
         ]);
     }
 }
