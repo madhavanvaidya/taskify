@@ -22,7 +22,9 @@
 
 <script>
     window.icons = {
-        refresh: 'bx-refresh'
+        refresh: 'bx-refresh',
+        toggleOff: 'bx-toggle-left',
+        toggleOn: 'bx-toggle-right'
     }
 
     function loadingTemplate(message) {

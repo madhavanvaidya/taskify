@@ -98,8 +98,13 @@
                         $users = $task->project->users;
                         ?>
                         <select id="" class="form-control js-example-basic-multiple" name="user_id[]" multiple="multiple">
+                            <?php
+                            $task_users = $task->users;
+                            ?>
                             @foreach($users as $user)
-                            <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
+                            <option value="{{$user->id}}" <?php if ($task_users->contains($user)) {
+                                                                echo "selected";
+                                                            } ?>>{{$user->first_name}} {{$user->last_name}}</option>
                             @endforeach
                         </select>
                     </div>

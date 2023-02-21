@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>TaskHub</title>
+    <title>Taskify</title>
 
     <meta name="description" content="" />
 
@@ -131,7 +131,7 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">taskhub</span>
+                  <span class="app-brand-text demo text-body fw-bolder">taskify</span>
                 </a>
               </div>
               <!-- /Logo -->

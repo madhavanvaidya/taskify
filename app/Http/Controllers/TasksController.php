@@ -171,4 +171,9 @@ class TasksController extends Controller
             "total" => $totaltasks,
         ]);
     }
+
+    public function dragula() {
+        $tasks = Task::all();
+        return view('tasks.board_view', ['tasks' => $tasks]);
+    }
 }

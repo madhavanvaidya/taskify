@@ -8,7 +8,7 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <h3 class="my-1">taskhub</h3>
+        <h3 class="my-1">taskify</h3>
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 

@@ -27,7 +27,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Taskhub</title>
+    <title>Taskify</title>
 
     <meta name="description" content="" />
 
@@ -131,11 +131,11 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">taskhub</span>
+                  <span class="app-brand-text demo text-body fw-bolder">taskify</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to TaskHub! 👋</h4>
+              <h4 class="mb-2">Welcome to Taskify! 👋</h4>
               <p class="mb-4">Sign into your account</p>
 
               <form id="formAuthentication" class="mb-3" action="/users/authenticate" method="POST">

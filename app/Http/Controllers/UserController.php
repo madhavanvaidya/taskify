@@ -182,14 +182,14 @@ class UserController extends Controller
 
         $users = User::when($search, function ($query) use ($search) {
             return $query->where('first_name', 'like', '%' . $search . '%')
-            ->orWhere('last_name', 'like', '%' . $search . '%')
-            ->orWhere('role', 'like', '%' . $search . '%')
-            ->orWhere('id', 'like', '%' . $search . '%');
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('role', 'like', '%' . $search . '%')
+                ->orWhere('id', 'like', '%' . $search . '%');
         });
 
-            $totalusers = $users->count();
+        $totalusers = $users->count();
 
-            $users = $users->orderBy($sort, $order)
+        $users = $users->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(fn ($user) => [
                 'id' => $user->id,
@@ -220,16 +220,16 @@ class UserController extends Controller
         $order = (request('order')) ? request('order') : "DESC";
 
         $tasks = User::find($user_id)->tasks();
-            if ($search) {
-                $tasks = $tasks->where(function($query) use ($search) {
-                    $query->where('tasks.title', 'like', '%' . $search . '%')
-                          ->orWhere('tasks.status', 'like', '%' . $search . '%');
-                });
-            }
+        if ($search) {
+            $tasks = $tasks->where(function ($query) use ($search) {
+                $query->where('tasks.title', 'like', '%' . $search . '%')
+                    ->orWhere('tasks.status', 'like', '%' . $search . '%');
+            });
+        }
 
-            $totalTasks = $tasks->count();
+        $totalTasks = $tasks->count();
 
-            $tasks = $tasks->orderBy($sort, $order)
+        $tasks = $tasks->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(
                 fn ($task) => [
@@ -242,7 +242,7 @@ class UserController extends Controller
                 ]
             );
 
-            
+
         foreach ($tasks->items() as $task => $collection) {
             foreach ($collection['clients'] as $i => $client) {
                 $collection['clients'][$i] = "<li class='avatar avatar-sm pull-up'  title='" . $client['first_name'] . " " . $client['last_name'] . "'>
@@ -279,16 +279,16 @@ class UserController extends Controller
         $order = (request('order')) ? request('order') : "DESC";
 
         $projects = User::find($user_id)->projects();
-            if ($search) {
-                $projects = $projects->where(function($query) use ($search) {
-                    $query->where('projects.title', 'like', '%' . $search . '%')
-                          ->orWhere('projects.status', 'like', '%' . $search . '%');
-                });
-            }
+        if ($search) {
+            $projects = $projects->where(function ($query) use ($search) {
+                $query->where('projects.title', 'like', '%' . $search . '%')
+                    ->orWhere('projects.status', 'like', '%' . $search . '%');
+            });
+        }
 
-            $totalprojects = $projects->count();
+        $totalprojects = $projects->count();
 
-            $projects = $projects->orderBy($sort, $order)
+        $projects = $projects->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(
                 fn ($project) => [
@@ -300,7 +300,7 @@ class UserController extends Controller
                 ]
             );
 
-            
+
         foreach ($projects->items() as $project => $collection) {
             foreach ($collection['clients'] as $i => $client) {
                 $collection['clients'][$i] = "<li class='avatar avatar-sm pull-up'  title='" . $client['first_name'] . " " . $client['last_name'] . "'>

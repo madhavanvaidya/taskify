@@ -90,8 +90,13 @@
                     <label class="form-label" for="user_id">Select Users</label>
                     <div class="input-group">
                         <select id="" class="form-control js-example-basic-multiple" name="user_id[]" multiple="multiple">
+                            <?php
+                            $project_users = $project->users;
+                            ?>
                             @foreach($users as $user)
-                            <option value="{{$user->id}}">{{$user->first_name}} {{$user->last_name}}</option>
+                            <option value="{{$user->id}}" <?php if ($project_users->contains($user)) {
+                                                                echo "selected";
+                                                            } ?>>{{$user->first_name}} {{$user->last_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -108,8 +113,13 @@
                     <label class="form-label" for="client_id">Select Clients</label>
                     <div class="input-group">
                         <select id="" class="form-control js-example-basic-multiple" name="client_id[]" multiple="multiple">
-                            @foreach ($clients as $client)
-                            <option value="{{$client->id}}">{{$client->first_name}} {{$client->last_name}}</option>
+                            <?php
+                            $project_clients = $project->clients;
+                            ?>
+                            @foreach($clients as $client)
+                            <option value="{{$client->id}}" <?php if ($project_clients->contains($client)) {
+                                                                echo "selected";
+                                                            } ?>>{{$client->first_name}} {{$client->last_name}}</option>
                             @endforeach
                         </select>
                     </div>

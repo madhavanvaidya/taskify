@@ -107,3 +107,5 @@ Route::put('/tasks/update/{id}', [TasksController::class, 'update']);
 Route::get('/tasks/destroy/{id}', [TasksController::class, 'destroy']);
 
 Route::get('/tasks/list', [TasksController::class, 'list']);
+
+Route::get('/tasks/kanban', [TasksController::class, 'dragula']);
