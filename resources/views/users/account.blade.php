@@ -13,7 +13,7 @@
                         @csrf
                         @method('PUT')
                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                            <img src="{{auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('/photos/1.png')}}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                            <img src="{{auth()->user()->photo ? asset('storage/' . auth()->user()->photo) : asset('/photos/no-image.png')}}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
                             <div class="button-wrapper">
                                 <div class="input-group d-flex">
                                     <input type="file" class="form-control" id="inputGroupFile02" name="upload">
@@ -187,13 +187,39 @@
                             <p class="mb-0">Once you delete your account, there is no going back. Please be certain.</p>
                         </div>
                     </div>
-                    <form id="formAccountDeactivation" action="/users/destroy/{{auth()->user()->id}}" method="POST">
-                        @csrf
-                        @method('DELETE')
 
-                        <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
-                    </form>
+                    <button type="submit" class="btn btn-danger deactivate-account" data-bs-toggle="modal" data-bs-target="#smallModal">Deactivate Account</button>
+
                 </div>
+
+                <!-- Delete account modal -->
+
+                <div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="exampleModalLabel2">Warning!</h6>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this task?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <form id="formAccountDeactivation" action="/users/destroy/{{auth()->user()->id}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-primary">Yes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -------------------- -->
+
             </div>
         </div>
     </div>

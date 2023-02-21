@@ -23,7 +23,7 @@ class UserController extends Controller
         $users = User::all();
         $clients = Client::all();
         $projects = Project::all();
-        $tasks = Task::latest()->paginate(5);
+        $tasks = Task::all();
         return view('index', ['users' => $users, 'clients' => $clients, 'projects' => $projects, 'tasks' => $tasks]);
     }
 
@@ -53,6 +53,7 @@ class UserController extends Controller
         ]);
 
         $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['photo'] = "photos/no-image.png";
 
         $user = User::create($formFields);
 

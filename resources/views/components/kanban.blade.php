@@ -50,7 +50,7 @@
                     $displayed = 0;
                     ?>
                     @foreach($users as $user)
-                    @if($displayed < 2) <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up mx-1" title="{{$user->first_name}} {{$user->last_name}}">
+                    @if($displayed < 3) <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-sm pull-up mx-1" title="{{$user->first_name}} {{$user->last_name}}">
                         <img src="{{asset('storage/' . $user->photo)}}" alt="Avatar" class="rounded-circle" />
                         </li>
                         <?php $displayed++ ?>
