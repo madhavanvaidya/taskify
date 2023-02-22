@@ -16,7 +16,7 @@
                         <th data-sortable="true" data-field="clients" data-formatter="clientFormatter">Clients</th>
                         <th data-sortable="true" data-field="users" data-formatter="userFormatter">Users</th>
                         <th data-sortable="true" data-field="status">Status</th>
-                        <th data-formatter="actionFormatter">Actions</th>
+                        <th data-formatter="actionsFormatter">Actions</th>
                     </tr>
                 </thead>
             </table>
@@ -35,7 +35,7 @@
         return '<i class="bx bx-loader-alt bx-spin bx-flip-vertical" ></i>'
     }
 
-    function actionFormatter(value, row, index) {
+    function actionsFormatter(value, row, index) {
         return [
             '<a href="/projects/edit/'+row.id+'">'+
             '<i class="bx bx-edit-alt mx-1">'+
