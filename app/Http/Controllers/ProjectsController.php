@@ -242,4 +242,15 @@ class ProjectsController extends Controller
             "total" => $totalTasks,
         ]);
     }
+
+    public function taskBoard($id) {
+        $project = Project::find($id);
+        $tasks = $project->tasks;
+        return view('projects.task_board', ['project'=>$project, 'tasks'=>$tasks]);
+    }
+
+    public function taskList($id) {
+        $project = Project::find($id);
+        return view('projects.task_list', ['project'=>$project]);
+    }
 }

@@ -132,13 +132,13 @@ class TasksController extends Controller
 
         $tasks = Task::when($search, function ($query) use ($search) {
             return $query->where('title', 'like', '%' . $search . '%')
-            ->orWhere('status', 'like', '%' . $search . '%')
-            ->orWhere('id', 'like', '%' . $search . '%');
+                ->orWhere('status', 'like', '%' . $search . '%')
+                ->orWhere('id', 'like', '%' . $search . '%');
         });
 
-            $totaltasks = $tasks->count();
+        $totaltasks = $tasks->count();
 
-            $tasks = $tasks->orderBy($sort, $order)
+        $tasks = $tasks->orderBy($sort, $order)
             ->paginate(request("limit"))
             ->through(
                 fn ($task) => [
@@ -172,8 +172,18 @@ class TasksController extends Controller
         ]);
     }
 
-    public function dragula() {
+    public function dragula()
+    {
         $tasks = Task::all();
         return view('tasks.board_view', ['tasks' => $tasks]);
+    }
+
+    public function updateStatus($id, $newStatus)
+    {
+        $task = Task::find($id);
+        $task->status = $newStatus;
+        $task->save();
+
+        return response()->json(['status' => 'success']);
     }
 }

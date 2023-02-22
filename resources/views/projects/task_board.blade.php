@@ -1,9 +1,11 @@
 @extends('layout')
 @section('content')
 <div class="mt-4">
-    <a href="/tasks/kanban" class="mx-4"><button type="button" class="btn btn-sm btn-primary"><i class='bx bxs-dashboard'></i> Board View</button></a>
-    <a href="/tasks"><button type="button" class="btn btn-sm btn-primary"><i class='bx bx-list-ul'></i> List View</button></a>
+    <a href="/projects/tasks/board/{{$project->id}}" class="mx-4"><button type="button" class="btn btn-sm btn-primary"><i class='bx bxs-dashboard'></i> Board View</button></a>
+    <a href="/projects/tasks/list/{{$project->id}}" ><button type="button" class="btn btn-sm btn-primary"><i class='bx bx-list-ul'></i> List View</button></a>
+    <a href="/projects/information/{{$project->id}}" class="mx-4"><button type="button" class="btn btn-sm btn-primary"><i class='bx bx-arrow-back'></i> Back to Project Details</button></a>
 </div>
+
 <div class="d-flex mx-2" style="overflow-x: scroll; overflow-y:hidden">
     <div class="my-4" style="background-color: none ; min-width: 300px; max-width: 300px;">
         <h4 class="fw-bold mx-4 my-2">Started</h4>

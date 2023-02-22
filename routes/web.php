@@ -90,6 +90,10 @@ Route::get('/projects/list', [ProjectsController::class, 'list']);
 
 Route::get('/projects/task_list/{id}', [ProjectsController::class, 'task_list']);
 
+Route::get('/projects/tasks/list/{id}', [ProjectsController::class, 'taskList']);
+
+Route::get('/projects/tasks/board/{id}', [ProjectsController::class, 'taskBoard']);
+
 //---------------------------------------------------------------
 
 Route::get('/tasks', [TasksController::class, 'index']);
@@ -109,3 +113,5 @@ Route::get('/tasks/destroy/{id}', [TasksController::class, 'destroy']);
 Route::get('/tasks/list', [TasksController::class, 'list']);
 
 Route::get('/tasks/kanban', [TasksController::class, 'dragula']);
+
+Route::put('/tasks/{id}/update-status/{status}', [TasksController::class, 'updateStatus']);
