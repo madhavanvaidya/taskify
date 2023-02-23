@@ -1,8 +1,14 @@
 @extends('layout')
 @section('content')
+<div class="container">
+    <div class="mt-4">
+        <h4 class="fw-bold mb-0">
+            <span class="text-muted fw-light">{{$client->first_name}} {{$client->last_name}} /</span> Update Details
+        </h4>
+    </div>
+</div>
 <div class="card m-4">
     <div class="card-body">
-        <h4 class="fw-bold">Update Client</h4>
         <form action="/clients/update/{{$client->id}}" method="POST">
             @csrf
             @method('PUT')
@@ -32,7 +38,7 @@
                     <label for="email" class="form-label">E-mail</label>
                     <input class="form-control" type="text" id="email" name="email" value="{{ $client->email }}">
 
-                    
+
                 </div>
 
                 <div class="mb-3 col-md-6">

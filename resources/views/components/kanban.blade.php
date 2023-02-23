@@ -1,5 +1,5 @@
 @props(['task'])
-<div class="card m-2" style="width: 95%;" data-task-id="{{$task->id}}">
+<div class="card m-2 shadow" data-task-id="{{$task->id}}">
     <div class="card-body">
         <div class="d-flex justify-content-between">
             <h6 class="card-title"><a href='/tasks/information/{{$task->id}}'><strong>{{$task->title}}</strong></a></h6>

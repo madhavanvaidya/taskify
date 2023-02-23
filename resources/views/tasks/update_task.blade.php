@@ -1,8 +1,14 @@
 @extends('layout')
 @section('content')
+<div class="container">
+    <div class="mt-4">
+        <h4 class="fw-bold mb-0">
+            <span class="text-muted fw-light">{{$task->title}} /</span> Update Details
+        </h4>
+    </div>
+</div>
 <div class="card m-4">
     <div class="card-body">
-        <h4 class="fw-bold">Update Task</h4>
         <form action="/tasks/update/{{ $task->id }}" method="POST">
             @csrf
             @method('PUT')

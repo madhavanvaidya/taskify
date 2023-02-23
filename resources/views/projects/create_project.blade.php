@@ -1,8 +1,14 @@
 @extends('layout')
 @section('content')
+<div class="container">
+    <div class="mt-4">
+        <h4 class="fw-bold mb-0">
+            <span class="text-muted fw-light">Projects /</span> Create new Project
+        </h4>
+    </div>
+</div>
 <div class="card m-4">
     <div class="card-body">
-        <h4 class="fw-bold">New Project</h4>
         <form action="/projects/store" method="POST">
             @csrf
             <div class="row">

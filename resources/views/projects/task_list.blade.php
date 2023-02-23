@@ -1,12 +1,21 @@
 @extends('layout')
 @section('content')
-<div class="mt-4">
-    <a href="/projects/tasks/board/{{$project->id}}" class="mx-4"><button type="button" class="btn btn-sm btn-primary"><i class='bx bxs-dashboard'></i> Board View</button></a>
-    <a href="/projects/tasks/list/{{$project->id}}"><button type="button" class="btn btn-sm btn-primary"><i class='bx bx-list-ul'></i> List View</button></a>
-    <a href="/projects/information/{{$project->id}}" class="mx-4"><button type="button" class="btn btn-sm btn-primary"><i class='bx bx-arrow-back'></i> Back to Project Details</button></a>
+<div class="container">
+    <div class="align-items-center d-flex justify-content-between my-4">
+        <div>
+            <h4 class="fw-bold mb-0">
+                <span class="text-muted fw-light">{{$project->title}} /</span> List View
+            </h4>
+        </div>
+        <div class="">
+            <a href="{{url('/projects/tasks/board/' . $project->id)}}"><button type="button" class="btn btn-sm btn-primary"><i class="bx bxs-dashboard"></i> Board View</button></a>
+            <a href="{{url('/projects/tasks/list/' . $project->id)}}"><button type="button" class="btn btn-sm btn-primary"><i class="bx bx-list-ul"></i> List View</button></a>
+            <a href="{{url('/projects/information/' . $project->id)}}"><button type="button" class="btn btn-sm btn-primary"><i class='bx bx-arrow-back'></i> Back to Project Details</button></a>
+        </div>
+    </div>
 </div>
 <!-- tasks -->
-<div class="card mx-4 my-4">
+<div class="card mx-4 my-2">
     <div class="table-responsive text-nowrap">
         <h4 class="fw-bold mx-4 mt-4">All Tasks</h4>
         <div class="mx-2 mb-2">
@@ -25,6 +34,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     window.icons = {

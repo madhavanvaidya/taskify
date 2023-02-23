@@ -1,9 +1,12 @@
 @extends('layout')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">User Details</h4>
-
-    <div class="row">
+    <div>
+        <h4 class="fw-bold mb-0">
+            <span class="text-muted fw-light">{{$user->first_name}} {{$user->last_name}} /</span> Details
+        </h4>
+    </div>
+    <div class="row mt-4">
         <div class="col-md-12">
             <div class="card mb-4">
 
@@ -91,7 +94,7 @@
 
 
         <div class="mx-2 mb-2">
-        <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/users/project_list/{{$user->id}}" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
+            <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/users/project_list/{{$user->id}}" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
                 <thead>
                     <tr>
                         <th data-sortable="true" data-field="title">Title</th>
@@ -117,45 +120,45 @@
 
     function actionFormatter(value, row, index) {
         return [
-            '<a href="/projects/edit/'+row.id+'">'+
-            '<i class="bx bx-edit-alt mx-1">'+
-            '</i>'+
-            '</a>'+
-            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal">'+
-                                '<i class="bx bx-trash mx-1"></i>'+
-                            '</button>'+
+            '<a href="/projects/edit/' + row.id + '">' +
+            '<i class="bx bx-edit-alt mx-1">' +
+            '</i>' +
+            '</a>' +
+            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal">' +
+            '<i class="bx bx-trash mx-1"></i>' +
+            '</button>' +
 
 
-                            '<div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">'+
-                                '<div class="modal-dialog modal-sm" role="document">'+
-                                    '<div class="modal-content">'+
-                                        '<div class="modal-header">'+
-                                            '<h5 class="modal-title" id="exampleModalLabel2">Warning!</h5>'+
-                                            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">'+'</button>'+
-                                        '</div>'+
-                                        '<div class="modal-body">'+
-                                            '<p>Are you sure you want to delete this project?</p>'+
-                                        '</div>'+
-                                        '<div class="modal-footer">'+
-                                            '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">'+
-                                                'Close'+
-                                            '</button>'+
-                                            '<a href="/projects/destroy/'+row.id+'">'+
-                                                '<button type="submit" class="btn btn-primary">Yes</button>'+
-                                            '</a>'+
-                                        '</div>'+
-                                    '</div>'+
-                               '</div>'+
-                            '</div>'
+            '<div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">' +
+            '<div class="modal-dialog modal-sm" role="document">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header">' +
+            '<h5 class="modal-title" id="exampleModalLabel2">Warning!</h5>' +
+            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">' + '</button>' +
+            '</div>' +
+            '<div class="modal-body">' +
+            '<p>Are you sure you want to delete this project?</p>' +
+            '</div>' +
+            '<div class="modal-footer">' +
+            '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">' +
+            'Close' +
+            '</button>' +
+            '<a href="/projects/destroy/' + row.id + '">' +
+            '<button type="submit" class="btn btn-primary">Yes</button>' +
+            '</a>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
         ]
     }
 
     function clientFormatter(value, row, index) {
-        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">'+row.clients]
+        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">' + row.clients]
     }
 
     function userFormatter(value, row, index) {
-        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">'+row.users]
+        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">' + row.users]
     }
 </script>
 

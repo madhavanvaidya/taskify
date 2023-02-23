@@ -1,10 +1,16 @@
 @extends('layout')
 @section('content')
+<div class="container mt-4">
+    <div>
+        <h4 class="fw-bold mb-0">
+        Users <span class="text-muted fw-light">/</span>
+        </h4>
+    </div>
+</div>
 <div class="card mx-4 my-4">
     <div class="table-responsive text-nowrap">
-        <h4 class="fw-bold mx-4 mt-4">All Users</h4>
         <div class="mx-2 mb-2">
-        <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/users/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
+            <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/users/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
                 <thead>
 
                     <tr>
@@ -34,7 +40,6 @@
     function nameFormatter(value, row, index) {
         return [row.first_name, row.last_name].join(' ')
     }
-    
 </script>
 
 @endsection

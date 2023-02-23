@@ -1,9 +1,13 @@
 @extends('layout')
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">Account Settings</h4>
+<div>
+        <h4 class="fw-bold mb-0">
+            <span class="text-muted fw-light">{{auth()->user()->first_name}} {{auth()->user()->last_name}} /</span> Account Settings
+        </h4>
+    </div>
 
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-md-12">
             <div class="card mb-4">
                 <h5 class="card-header">Profile Details</h5>
