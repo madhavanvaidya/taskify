@@ -2,7 +2,6 @@
 <!-- tasks -->
 <div class="card mx-4 my-4">
     <div class="table-responsive text-nowrap">
-        <h4 class="fw-bold mx-4 mt-4">All Tasks</h4>
         @if (count($tasks)==0)
         <h5 class="card-header">No tasks Found!</h5>
         @else
