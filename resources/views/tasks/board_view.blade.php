@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="my-4" style="background-color: none ; min-width: 300px; max-width: 300px;">
+        <div class="my-4 me-3" style="background-color: none ; min-width: 300px; max-width: 300px;">
             <h4 class="fw-bold mx-4 my-2">Ongoing</h4>
             <div class="row m-2 d-flex flex-column" id="ongoing" style="height: 100%" data-status="ongoing">
                 @foreach ($tasks as $task)
