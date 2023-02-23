@@ -25,7 +25,7 @@ class User extends Authenticatable
         'password_confirmation',
         'phone',
         'profile',
-        'role',
+        'role_id',
         'address',
         'city',
         'state',
@@ -69,5 +69,10 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->belongsToMany(Task::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

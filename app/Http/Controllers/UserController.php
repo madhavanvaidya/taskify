@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskUser;
 use App\Models\User;
+use App\Models\Role;
 use GuzzleHttp\Promise\TaskQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
@@ -54,6 +55,7 @@ class UserController extends Controller
 
         $formFields['password'] = bcrypt($formFields['password']);
         $formFields['photo'] = "photos/no-image.png";
+        $formFields['role_id'] = 4;
 
         $user = User::create($formFields);
 
@@ -83,7 +85,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.account', ['user' => $user]);
+        $roles = Role::all();
+        return view('users.account', ['user' => $user, 'roles' => $roles]);
     }
 
     /**
@@ -99,7 +102,7 @@ class UserController extends Controller
             'first_name' => ['required'],
             'last_name' => ['required'],
             'phone' => 'required',
-            'role' => 'required',
+            'role_id' => 'required',
             'address' => 'required',
             'city' => 'required',
             'state' => 'required',
@@ -196,7 +199,7 @@ class UserController extends Controller
                 'id' => $user->id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                'role' => $user->role,
+                'role' => $user->role->title,
                 'email' => $user->email,
                 'phone' => $user->phone,
                 'photo' => "<div class='avatar avatar-md pull-up' title='" . $user->first_name . " " . $user->last_name . "'>

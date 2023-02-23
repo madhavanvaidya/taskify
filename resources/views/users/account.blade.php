@@ -89,14 +89,13 @@
 
 
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="phone">Role</label>
+                                <label class="form-label" for="role_id">Role</label>
                                 <div class="input-group">
-                                    <select class="form-select" id="role" name="role">
-                                        <option selected value="{{auth()->user()->role}}">{{auth()->user()->role}}</option>
-                                        <option value="HR">HR</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Employee">Employee</option>
-                                        <option value="Super Admin">Super Admin</option>
+                                    <select class="form-select" id="role_id" name="role_id">
+                                        @foreach ($roles as $role)
+
+                                        <option value="{{$role->id}}" <?php if($user->role->id == $role->id){ echo 'selected'; }  ?>>{{$role->title}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
