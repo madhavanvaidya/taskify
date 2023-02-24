@@ -74,6 +74,8 @@ Route::get('/clients/project_list/{id}', [ClientController::class, 'project_list
 
 Route::get('/projects', [ProjectsController::class, 'index']);
 
+Route::get('/projects/list_view', [ProjectsController::class, 'list_view']);
+
 Route::get('/projects/information/{id}', [ProjectsController::class, 'show']);
 
 Route::get('/projects/create', [ProjectsController::class, 'create']);

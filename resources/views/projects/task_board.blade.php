@@ -4,7 +4,7 @@
     <div class="align-items-center d-flex justify-content-between my-4">
         <div>
             <h4 class="fw-bold mb-0">
-                <span class="text-muted fw-light">{{$project->title}} /</span> Board View
+                <span class="text-muted fw-light">{{$project->title}} / Tasks /</span> Board View
             </h4>
         </div>
         <div class="">

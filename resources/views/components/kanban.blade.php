@@ -2,16 +2,16 @@
 <div class="card m-2 shadow" data-task-id="{{$task->id}}">
     <div class="card-body">
         <div class="d-flex justify-content-between">
-            <h6 class="card-title"><a href='/tasks/information/{{$task->id}}'><strong>{{$task->title}}</strong></a></h6>
+            <h6 class="card-title"><a href="{{url('/tasks/information/' . $task->id)}}"><strong>{{$task->title}}</strong></a></h6>
             <div>
                 <div class="input-group">
                     <a href="" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class='bx bxs-cog'></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/tasks/edit/{{$task->id}}" class="card-link m-2">Edit Task</a></li>
-                        <li><a href="" class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal">
-                                Delete Task
+                        <li class="dropdown-item"><a href="/tasks/edit/{{$task->id}}" class="card-link m-2"><i class='bx bxs-edit'></i> Edit Task</a></li>
+                        <li class="dropdown-item"><a href="" class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal">
+                                <i class='bx bxs-trash'></i> Delete Task
                             </a></li>
                     </ul>
                 </div>

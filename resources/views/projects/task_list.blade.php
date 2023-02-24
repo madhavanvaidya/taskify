@@ -4,7 +4,7 @@
     <div class="align-items-center d-flex justify-content-between my-4">
         <div>
             <h4 class="fw-bold mb-0">
-                <span class="text-muted fw-light">{{$project->title}} /</span> List View
+                <span class="text-muted fw-light">{{$project->title}} / Tasks /</span> List View
             </h4>
         </div>
         <div class="">
@@ -17,7 +17,6 @@
 <!-- tasks -->
 <div class="card mx-4 my-2">
     <div class="table-responsive text-nowrap">
-        <h4 class="fw-bold mx-4 mt-4">All Tasks</h4>
         <div class="mx-2 mb-2">
             <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/projects/task_list/{{$project->id}}" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
                 <thead>
