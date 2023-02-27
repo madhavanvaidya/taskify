@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "Update ".$client->first_name."'s Profile" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="mt-4">
@@ -9,7 +14,7 @@
 </div>
 <div class="card m-4">
     <div class="card-body">
-        <form action="/clients/update/{{$client->id}}" method="POST">
+        <form action="{{url('/clients/update/' . $client->id)}}" method="POST">
             @csrf
             @method('PUT')
             <div class="row">

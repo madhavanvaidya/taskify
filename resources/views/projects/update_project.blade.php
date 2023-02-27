@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "Update ".$project->title." Information" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="mt-4">
@@ -10,7 +15,7 @@
 <div class="card m-4">
     <div class="card-body">
         <h4 class="fw-bold">Update Project</h4>
-        <form action="/projects/update/{{ $project->id }}" method="POST">
+        <form action="{{url('/projects/update/' . $project->id)}}" method="POST">
             @csrf
             @method('PUT')
             <div class="row">

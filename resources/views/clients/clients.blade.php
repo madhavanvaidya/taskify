@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "Clients" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mt-4">
@@ -7,7 +12,7 @@
                 Clients <span class="text-muted fw-light"> /</span>
             </h4>
         </div>
-        <a href="/clients/create"><button type="button" class="btn btn-sm btn-primary">Create new Client</button></a>
+        <a href="{{url('/clients/create')}}"><button type="button" class="btn btn-sm btn-primary">Create new Client</button></a>
     </div>
 </div>
 <div class="card m-4">

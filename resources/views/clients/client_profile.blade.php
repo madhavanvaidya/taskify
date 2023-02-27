@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo $client->first_name."'s Profile" ?>
+@endsection
+
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div>

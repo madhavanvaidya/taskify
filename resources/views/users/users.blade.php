@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "Users" ?>
+@endsection
+
 @section('content')
 <div class="container mt-4">
     <div>

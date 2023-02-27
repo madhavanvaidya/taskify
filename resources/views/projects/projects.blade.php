@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "Projects - List View" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="mt-4 d-flex justify-content-between align-items-center">

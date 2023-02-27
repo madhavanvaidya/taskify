@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo $task->title." Information" ?>
+@endsection
+
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div>

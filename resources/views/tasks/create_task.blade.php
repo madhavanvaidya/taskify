@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "New Task" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="mt-4">
@@ -9,7 +14,7 @@
 </div>
 <div class="card m-4">
     <div class="card-body">
-        <form action="/tasks/store/{{$project->id}}" method="POST">
+        <form action="{{url('/tasks/store/' . $project->id)}}" method="POST">
             @csrf
             <div class="row">
                 <div class="mb-3">

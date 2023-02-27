@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "New Project" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="mt-4">
@@ -9,7 +14,7 @@
 </div>
 <div class="card m-4">
     <div class="card-body">
-        <form action="/projects/store" method="POST">
+        <form action="{{url('/projects/store')}}" method="POST">
             @csrf
             <div class="row">
                 <div class="mb-3">

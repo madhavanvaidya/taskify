@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "Dashboard" ?>
+@endsection
+
 @section('content')
 @auth
 

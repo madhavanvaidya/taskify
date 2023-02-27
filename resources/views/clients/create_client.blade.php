@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "New Client" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="mt-4">
@@ -10,7 +15,7 @@
 <div class="card m-4">
     <div class="card-body">
         <h4 class="fw-bold">New Client</h4>
-        <form action="/clients/store" method="POST" enctype="multipart/form-data">
+        <form action="{{url('/clients/store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="mb-3 col-md-6">

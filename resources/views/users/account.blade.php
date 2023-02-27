@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo auth()->user()->first_name."'s Account" ?>
+@endsection
+
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
 <div>
@@ -13,7 +18,7 @@
                 <h5 class="card-header">Profile Details</h5>
                 <!-- Account -->
                 <div class="card-body">
-                    <form action="/users/update_photo/{{auth()->user()->id}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/users/update_photo/' . auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="d-flex align-items-start align-items-sm-center gap-4">

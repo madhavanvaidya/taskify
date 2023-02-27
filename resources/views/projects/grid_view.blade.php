@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('title')
+<?php echo "Projects - Grid View" ?>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="mt-4 d-flex justify-content-between align-items-center">
@@ -67,7 +72,7 @@
                     <span class='badge bg-label-{{config("taskhub.project_status_labels")[$project->status]}} me-1'> {{$project->status}}</span>
 
                     <div class="my-4 d-flex justify-content-between">
-                        <span><i class='bx bx-task'></i> {{count($project->tasks)}} Tasks</span>
+                        <span><i class='bx bx-task'></i> <b>{{count($project->tasks)}} </b>Task(s)</span>
                         <a href="{{url('/projects/tasks/list/' . $project->id)}}"><button type="button" class="btn btn-sm btn-primary">Tasks Details</button></a>
                     </div>
 
