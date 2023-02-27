@@ -73,7 +73,7 @@
 
                     <div class="my-4 d-flex justify-content-between">
                         <span><i class='bx bx-task'></i> <b>{{count($project->tasks)}} </b>Task(s)</span>
-                        <a href="{{url('/projects/tasks/list/' . $project->id)}}"><button type="button" class="btn btn-sm btn-primary">Tasks Details</button></a>
+                        <a href="{{url('/projects/tasks/list/' . $project->id)}}"><button type="button" class="btn btn-sm rounded-pill btn-outline-primary">Tasks Details</button></a>
                     </div>
 
                     <div class="row mt-2">

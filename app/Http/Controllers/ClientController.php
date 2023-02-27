@@ -164,7 +164,8 @@ class ClientController extends Controller
                                 <a href='/clients/profile/show/" . $client->id . "'>
                                 <img src='" . asset('storage/' . $client->profile) . "' alt='Avatar' class='rounded-circle'/>
                                 </a>
-                                </div>"
+                                </div>",
+                'projects' => count($client->projects)
             ]);
 
         return response()->json([

@@ -25,4 +25,11 @@ return [
         "cancelled" => "danger",
         "ongoing" => "info"
     ],
+
+    'role_labels' => [
+        'Admin' => "info",
+        "Super Admin" => "danger",
+        "HR" => "primary",
+        "Team Member" => "warning"
+    ],
 ];

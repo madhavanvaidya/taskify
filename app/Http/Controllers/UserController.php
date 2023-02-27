@@ -199,14 +199,16 @@ class UserController extends Controller
                 'id' => $user->id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                'role' => $user->role->title,
+                'role' => "<span class='badge bg-label-" . config('taskhub.role_labels')[$user->role->title] . " me-1'>" . $user->role->title . "</span>",
                 'email' => $user->email,
                 'phone' => $user->phone,
                 'photo' => "<div class='avatar avatar-md pull-up' title='" . $user->first_name . " " . $user->last_name . "'>
                     <a href='/users/profile/show/" . $user->id . "'>
                     <img src='" . asset('storage/' . $user->photo) . "' alt='Avatar' class='rounded-circle'/>
                     </a>
-                    </div>"
+                    </div>",
+                'tasks' => count($user->tasks),
+                'projects' => count($user->projects)
             ]);
 
         return response()->json([

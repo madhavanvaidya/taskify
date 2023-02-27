@@ -22,11 +22,10 @@
                 <thead>
 
                     <tr>
-                        <th data-formatter="nameFormatter" data-sortable="true" data-field="first_name">Full Name</th>
+                        <th data-formatter="clientFormatter" data-sortable="true">Clients</th>
                         <th data-field="company" data-sortable="true">Company</th>
-                        <th data-field="email" data-sortable="true">Email</th>
                         <th data-field="phone" data-sortable="true">Phone</th>
-                        <th data-field="profile">Profile</th>
+                        <th data-formatter="assignedFormatter">Assigned</th>
                         <th data-formatter="actionFormatter">Actions</th>
                     </tr>
                 </thead>
@@ -82,6 +81,15 @@
 
     function nameFormatter(value, row, index) {
         return [row.first_name, row.last_name].join(' ')
+    }
+
+    function clientFormatter(value, row, index) {
+        return '<div class="d-flex">'+row.profile+'<div class="mx-2 mt-2"><h6 class="mb-0">'+row.first_name+''+row.last_name+'</h6><p class="text-muted">'+row.email+'</p></div>'+
+        '</div>'
+    }
+
+    function assignedFormatter(value, row, index) {
+        return '<div class="d-flex flex-column mx-4"><span class="badge rounded-pill bg-primary" style="width: 50%;">'+row.projects+'</span><p>Projects</p></div>'
     }
 </script>
 

@@ -19,11 +19,10 @@
                 <thead>
 
                     <tr>
-                        <th data-field="first_name" data-formatter="nameFormatter" data-sortable="ture">Full Name</th>
+                        <th data-formatter="userFormatter" data-sortable="true">User</th>
                         <th data-field="role" data-sortable="true">Role</th>
-                        <th data-field="email" data-sortable="true">Email</th>
                         <th data-field="phone" data-sortable="true">Phone</th>
-                        <th data-field="photo">Profile</th>
+                        <th data-formatter="assignedFormatter">Assigned</th>
                     </tr>
                 </thead>
             </table>
@@ -42,8 +41,14 @@
         return '<i class="bx bx-loader-alt bx-spin bx-flip-vertical" ></i>'
     }
 
-    function nameFormatter(value, row, index) {
-        return [row.first_name, row.last_name].join(' ')
+    function userFormatter(value, row, index) {
+        return '<div class="d-flex">'+row.photo+'<div class="mx-2 mt-2"><h6 class="mb-0">'+row.first_name+''+row.last_name+'</h6><p class="text-muted">'+row.email+'</p></div>'+
+        '</div>'
+    }
+
+    function assignedFormatter(value, row, index) {
+        return '<div class="d-flex justify-content-start align-items-center"><div class="d-flex flex-column mx-4"><span class="badge rounded-pill bg-primary" style="width: -webkit-fill-available;">'+row.projects+'</span><p>Projects</p></div>'+
+        '<div class="d-flex flex-column"><span class="badge rounded-pill bg-primary" style="width: -webkit-fill-available;">'+row.tasks+'</span><p>Tasks</p></div></div>'
     }
 </script>
 
