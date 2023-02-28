@@ -48,42 +48,45 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item">
-            <a href="/" class="menu-link">
+        <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
+            <a href="/" class="menu-link {{ Request::is('/') ? 'active' : '' }}">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div  >Dashboard</div>
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="/projects" class="menu-link">
+        <li class="menu-item {{ Request::is('projects') || Request::is('projects/*') ? 'active' : '' }}">
+            <a href="/projects" class="menu-link {{ Request::is('projects') || Request::is('projects/*') ? 'active' : '' }}">
                 <i class="menu-icon tf-icons bx bx-briefcase-alt-2"></i>
-                <div data-i18n="Analytics">Projects</div>
+                <div  >Projects</div>
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="/tasks" class="menu-link">
+        <li class="menu-item {{ Request::is('tasks') || Request::is('tasks/*') ? 'active' : '' }}">
+            <a href="/tasks" class="menu-link {{ Request::is('tasks') || Request::is('tasks/*') ? 'active' : '' }}">
                 <i class="menu-icon tf-icons bx bx-task"></i>
-                <div data-i18n="Analytics">Tasks</div>
+                <div  >Tasks</div>
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="/users/show" class="menu-link">
+        <li class="menu-item {{ Request::is('users') || Request::is('users/*') ? 'active' : '' }}">
+            <a href="/users/show" class="menu-link {{ Request::is('users') || Request::is('users/*') ? 'active' : '' }}">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">Users</div>
+                <div  >Users</div>
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="/clients/show" class="menu-link">
+        <li class="menu-item {{ Request::is('clients') || Request::is('clients/*') ? 'active' : '' }}">
+            <a href="/clients/show" class="menu-link {{ Request::is('clients') || Request::is('clients/*') ? 'active' : '' }}">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <div data-i18n="Analytics">Clients</div>
+                <div  >Clients</div>
             </a>
         </li>
     </ul>
 </aside>
+
 @else
 @endauth
+
+
 <!-- / Menu -->

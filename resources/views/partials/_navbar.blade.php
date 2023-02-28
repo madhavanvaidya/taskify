@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="flex-grow-1">
                                     <span class="fw-semibold d-block">{{auth()->user()->first_name}} {{auth()->user()->last_name}}</span>
-                                    <small class="text-muted">Admin</small>
+                                    <small class="text-muted">{{auth()->user()->role->title}}</small>
                                 </div>
                             </div>
                         </a>

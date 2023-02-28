@@ -19,7 +19,7 @@
                 <thead>
 
                     <tr>
-                        <th data-formatter="userFormatter" data-sortable="true">User</th>
+                        <th data-formatter="userFormatter" data-sortable="true" data-field="first_name">User</th>
                         <th data-field="role" data-sortable="true">Role</th>
                         <th data-field="phone" data-sortable="true">Phone</th>
                         <th data-formatter="assignedFormatter">Assigned</th>
@@ -42,13 +42,13 @@
     }
 
     function userFormatter(value, row, index) {
-        return '<div class="d-flex">'+row.photo+'<div class="mx-2 mt-2"><h6 class="mb-0">'+row.first_name+''+row.last_name+'</h6><p class="text-muted">'+row.email+'</p></div>'+
+        return '<div class="d-flex">'+row.photo+'<div class="mx-2 mt-2"><h6 class="mb-0">'+row.first_name+' '+row.last_name+'</h6><p class="text-muted">'+row.email+'</p></div>'+
         '</div>'
     }
 
     function assignedFormatter(value, row, index) {
-        return '<div class="d-flex justify-content-start align-items-center"><div class="d-flex flex-column mx-4"><span class="badge rounded-pill bg-primary" style="width: -webkit-fill-available;">'+row.projects+'</span><p>Projects</p></div>'+
-        '<div class="d-flex flex-column"><span class="badge rounded-pill bg-primary" style="width: -webkit-fill-available;">'+row.tasks+'</span><p>Tasks</p></div></div>'
+        return '<div class="d-flex justify-content-start align-items-center"><div class="text-center mx-4"><span class="badge rounded-pill bg-primary" >'+row.projects+'</span><p>Projects</p></div>'+
+        '<div class="text-center"><span class="badge rounded-pill bg-primary" >'+row.tasks+'</span><p>Tasks</p></div></div>'
     }
 </script>
 
