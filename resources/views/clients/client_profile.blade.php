@@ -83,7 +83,7 @@
 
 <!-- projects -->
 
-<div class="card mx-4 my-4">
+<div class="card mx-4 mb-4">
     <div class="table-responsive text-nowrap">
 
         <div class="d-flex justify-content-between">
