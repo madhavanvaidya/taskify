@@ -7,30 +7,31 @@
 @section('content')
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mt-4">
-        <div >
+        <div>
             <h4 class="fw-bold mb-0">
                 Clients <span class="text-muted fw-light"> /</span>
             </h4>
         </div>
         <a href="{{url('/clients/create')}}"><button type="button" class="btn btn-sm btn-primary">Create new Client</button></a>
     </div>
-</div>
-<div class="card m-4">
-    <div class="table-responsive text-nowrap">
-        <div class="mx-2 mb-2">
-            <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/clients/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
-                <thead>
 
-                    <tr>
-                        <th data-formatter="clientFormatter" data-sortable="true">Clients</th>
-                        <th data-field="company" data-sortable="true">Company</th>
-                        <th data-field="phone" data-sortable="true">Phone</th>
-                        <th data-formatter="assignedFormatter">Assigned</th>
-                        <th data-formatter="actionFormatter">Actions</th>
-                    </tr>
-                </thead>
+    <div class="card mt-4">
+        <div class="table-responsive text-nowrap">
+            <div class="mx-2 mb-2">
+                <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/clients/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
+                    <thead>
 
-            </table>
+                        <tr>
+                            <th data-formatter="clientFormatter" data-sortable="true">Clients</th>
+                            <th data-field="company" data-sortable="true">Company</th>
+                            <th data-field="phone" data-sortable="true">Phone</th>
+                            <th data-formatter="assignedFormatter">Assigned</th>
+                            <th data-formatter="actionFormatter">Actions</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -84,12 +85,12 @@
     }
 
     function clientFormatter(value, row, index) {
-        return '<div class="d-flex">'+row.profile+'<div class="mx-2 mt-2"><h6 class="mb-0">'+row.first_name+' '+row.last_name+'</h6><p class="text-muted">'+row.email+'</p></div>'+
-        '</div>'
+        return '<div class="d-flex">' + row.profile + '<div class="mx-2 mt-2"><h6 class="mb-0">' + row.first_name + ' ' + row.last_name + '</h6><p class="text-muted">' + row.email + '</p></div>' +
+            '</div>'
     }
 
     function assignedFormatter(value, row, index) {
-        return '<div class="text-center mx-4"><span class="badge rounded-pill bg-primary" style="width: 50%;">'+row.projects+'</span><p>Projects</p></div>'
+        return '<div class="mx-4"><span class="badge rounded-pill bg-primary" style="width: 50%;">' + row.projects + '</span><div>Projects</div></div>'
     }
 </script>
 

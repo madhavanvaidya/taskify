@@ -75,4 +75,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function todos() {
+        return $this->hasMany(Todo::class);
+    }
 }

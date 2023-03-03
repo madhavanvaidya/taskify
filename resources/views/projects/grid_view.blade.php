@@ -33,11 +33,11 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-item">
-                                        <a href="{{url('/projects/edit/' . $project->id)}}" class="card-link m-2"><i class='bx bxs-edit'></i> Edit project</a>
+                                        <a href="{{url('/projects/edit/' . $project->id)}}" class="card-link m-2"><i class='menu-icon tf-icons bx bxs-edit'></i> Edit project</a>
                                     </li>
                                     <li class="dropdown-item">
                                         <a href="" class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal">
-                                            <i class='bx bxs-trash'></i> Delete project
+                                            <i class='menu-icon tf-icons bx bxs-trash'></i> Delete project
                                         </a>
                                     </li>
                                 </ul>
@@ -87,18 +87,18 @@
                                 $displayed = 0;
                                 ?>
                                 @foreach($users as $user)
-                                @if($displayed < 3) <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-md pull-up mx-1" title="{{$user->first_name}} {{$user->last_name}}">
-                                    <img src="{{asset('storage/' . $user->photo)}}" alt="Avatar" class="rounded-circle" />
-                                    </li>
-                                    <?php $displayed++ ?>
-                                    @else
-                                    <?php
-                                    $remaining = $count - $displayed;
-                                    echo '+' . $remaining . '';
-                                    break;
-                                    ?>
+                                    @if($displayed < 3) <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-md pull-up mx-1" title="{{$user->first_name}} {{$user->last_name}}">
+                                        <img src="{{asset('storage/' . $user->photo)}}" alt="Avatar" class="rounded-circle" />
+                                        </li>
+                                        <?php $displayed++ ?>
+                                        @else
+                                        <?php
+                                        $remaining = $count - $displayed;
+                                        echo '+' . $remaining . '';
+                                        break;
+                                        ?>
                                     @endif
-                                    @endforeach
+                                @endforeach
                             </ul>
                             </p>
                         </div>

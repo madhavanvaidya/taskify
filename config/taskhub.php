@@ -32,4 +32,10 @@ return [
         "HR" => "primary",
         "Team Member" => "warning"
     ],
+
+    'priority_labels' => [
+        'low' => "success",
+        "high" => "danger",
+        "medium" => "warning"
+    ],
 ];

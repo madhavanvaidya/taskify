@@ -17,6 +17,8 @@
             <a href="{{url('/tasks')}}"><button type="button" class="btn btn-sm btn-primary"><i class="bx bx-list-ul"></i> List View</button></a>
         </div>
     </div>
+
+    <x-tasks-card :tasks="$tasks" />
 </div>
-<x-tasks-card :tasks="$tasks" />
+
 @endsection

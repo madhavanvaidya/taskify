@@ -4,7 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
+use App\Http\Controllers\TodosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -117,3 +117,19 @@ Route::get('/tasks/list', [TasksController::class, 'list']);
 Route::get('/tasks/kanban', [TasksController::class, 'dragula']);
 
 Route::put('/tasks/{id}/update-status/{status}', [TasksController::class, 'updateStatus']);
+
+//---------------------------------------------------------------
+
+Route::get('/todos', [TodosController::class, 'index']);
+
+Route::get('/todos/create', [TodosController::class, 'create']);
+
+Route::post('/todos/store', [TodosController::class, 'store']);
+
+Route::patch('/todos/cross/{id}', [TodosController::class, 'update_checked']);
+
+Route::get('/todos/edit/{id}', [TodosController::class, 'edit']);
+
+Route::put('/todos/update/{id}', [TodosController::class, 'update']);
+
+Route::delete('/todos/destroy/{id}', [TodosController::class, 'destroy']);

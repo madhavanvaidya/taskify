@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<?php echo $project->title." - Tasks - List View" ?>
+<?php echo $project->title . " - Tasks - List View" ?>
 @endsection
 
 @section('content')
@@ -18,28 +18,28 @@
             <a href="{{url('/projects/information/' . $project->id)}}"><button type="button" class="btn btn-sm btn-primary"><i class='bx bx-arrow-back'></i> Back to Project Details</button></a>
         </div>
     </div>
-</div>
-<!-- tasks -->
-<div class="card mx-4 my-2">
-    <div class="table-responsive text-nowrap">
-        <div class="mx-2 mb-2">
-            <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/projects/task_list/{{$project->id}}" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
-                <thead>
-                    <tr>
-                        <th data-sortable="true" data-field="title">Task</th>
-                        <th data-sortable="true" data-field="project">Project</th>
-                        <th data-sortable="true" data-field="clients" data-formatter="clientFormatter">Clients</th>
-                        <th data-sortable="true" data-field="users" data-formatter="userFormatter">Users</th>
-                        <th data-sortable="true" data-field="status">Status</th>
-                        <th data-formatter="actionFormatter">Actions</th>
-                    </tr>
-                </thead>
-            </table>
+
+    <!-- tasks -->
+    <div class="card my-2">
+        <div class="table-responsive text-nowrap">
+            <div class="mx-2 mb-2">
+                <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/projects/task_list/{{$project->id}}" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
+                    <thead>
+                        <tr>
+                            <th data-sortable="true" data-field="title">Task</th>
+                            <th data-sortable="true" data-field="project">Project</th>
+                            <th data-sortable="true" data-field="clients" data-formatter="clientFormatter">Clients</th>
+                            <th data-sortable="true" data-field="users" data-formatter="userFormatter">Users</th>
+                            <th data-sortable="true" data-field="status">Status</th>
+                            <th data-formatter="actionFormatter">Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
+
 </div>
-
-
 <script>
     window.icons = {
         refresh: 'bx-refresh'

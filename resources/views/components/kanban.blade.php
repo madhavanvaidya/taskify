@@ -9,9 +9,9 @@
                         <i class='bx bxs-cog'></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-item"><a href="/tasks/edit/{{$task->id}}" class="card-link m-2"><i class='bx bxs-edit'></i> Edit Task</a></li>
+                        <li class="dropdown-item"><a href="/tasks/edit/{{$task->id}}" class="card-link m-2"><i class='menu-icon tf-icons bx bxs-edit'></i> Edit Task</a></li>
                         <li class="dropdown-item"><a href="" class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal">
-                                <i class='bx bxs-trash'></i> Delete Task
+                                <i class='menu-icon tf-icons bx bxs-trash'></i> Delete Task
                             </a></li>
                     </ul>
                 </div>

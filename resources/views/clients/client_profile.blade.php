@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-<?php echo $client->first_name."'s Profile" ?>
+<?php echo $client->first_name . "'s Profile" ?>
 @endsection
 
 @section('content')
@@ -79,30 +79,31 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- projects -->
-
-<div class="card mx-4 mb-4">
-    <div class="table-responsive text-nowrap">
-
-        <div class="d-flex justify-content-between">
-            <h4 class="fw-bold mx-4 mt-4">All Projects</h4>
-        </div>
 
 
-        <div class="mx-2 mb-2">
-            <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/clients/project_list/{{$client->id}}" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
-                <thead>
-                    <tr>
-                        <th data-sortable="true" data-field="title">Title</th>
-                        <th data-sortable="true" data-field="clients" data-formatter="clientFormatter">Clients</th>
-                        <th data-sortable="true" data-field="users" data-formatter="userFormatter">Users</th>
-                        <th data-sortable="true" data-field="status">Status</th>
-                        <th data-formatter="actionFormatter">Actions</th>
-                    </tr>
-                </thead>
-            </table>
+    <!-- projects -->
+
+    <div class="card mt-4">
+        <div class="table-responsive text-nowrap">
+
+            <div class="d-flex justify-content-between">
+                <h4 class="fw-bold mx-4 mt-4">All Projects</h4>
+            </div>
+
+
+            <div class="mx-2 mb-2">
+                <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/clients/project_list/{{$client->id}}" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
+                    <thead>
+                        <tr>
+                            <th data-sortable="true" data-field="title">Title</th>
+                            <th data-sortable="true" data-field="clients" data-formatter="clientFormatter">Clients</th>
+                            <th data-sortable="true" data-field="users" data-formatter="userFormatter">Users</th>
+                            <th data-sortable="true" data-field="status">Status</th>
+                            <th data-formatter="actionFormatter">Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 </div>

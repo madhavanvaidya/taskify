@@ -51,35 +51,42 @@
         <li class="menu-item {{ Request::is('/') ? 'active' : '' }}">
             <a href="/" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div  >Dashboard</div>
+                <div>Dashboard</div>
             </a>
         </li>
 
         <li class="menu-item {{ Request::is('projects') || Request::is('projects/*') ? 'active' : '' }}">
             <a href="/projects" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-briefcase-alt-2"></i>
-                <div  >Projects</div>
+                <div>Projects</div>
             </a>
         </li>
 
         <li class="menu-item {{ Request::is('tasks') || Request::is('tasks/*') ? 'active' : '' }}">
             <a href="/tasks" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-task"></i>
-                <div  >Tasks</div>
+                <div>Tasks</div>
+            </a>
+        </li>
+
+        <li class="menu-item {{ Request::is('todo') || Request::is('todo/*') ? 'active' : '' }}">
+            <a href="/todos" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-list-check'></i>
+                <div>Todo</div>
             </a>
         </li>
 
         <li class="menu-item {{ Request::is('users') || Request::is('users/*') ? 'active' : '' }}">
             <a href="/users/show" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div  >Users</div>
+                <div>Users</div>
             </a>
         </li>
 
         <li class="menu-item {{ Request::is('clients') || Request::is('clients/*') ? 'active' : '' }}">
             <a href="/clients/show" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
-                <div  >Clients</div>
+                <div>Clients</div>
             </a>
         </li>
     </ul>

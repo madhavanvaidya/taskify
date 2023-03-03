@@ -1,6 +1,6 @@
 <!-- projects -->
 
-<div class="card mx-4 my-4">
+<div class="card my-4">
     <div class="table-responsive text-nowrap">
         <div class="mx-2 mb-2">
         <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/projects/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
@@ -59,7 +59,7 @@
                                             '</a>'+
                                         '</div>'+
                                     '</div>'+
-                               '</div>'+
+                                '</div>'+
                             '</div>'
         ]
     }
