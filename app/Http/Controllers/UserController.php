@@ -119,13 +119,16 @@ class UserController extends Controller
 
     public function update_photo(Request $request, $id)
     {
-        $old = User::find($id);
-        Storage::disk('public')->delete($old->photo);
+
 
         if ($request->hasFile('upload')) {
+            $old = User::find($id);
+            Storage::disk('public')->delete($old->photo);
             $formFields['photo'] = $request->file('upload')->store('photos', 'public');
             User::find($id)->update($formFields);
             return back()->with('message', 'Profile picture updated Successfully!');
+        } else {
+            return back()->with('message', 'No Profile Picture Selected!');
         }
     }
 
