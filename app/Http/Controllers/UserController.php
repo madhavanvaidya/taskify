@@ -128,7 +128,7 @@ class UserController extends Controller
             User::find($id)->update($formFields);
             return back()->with('message', 'Profile picture updated Successfully!');
         } else {
-            return back()->with('message', 'No Profile Picture Selected!');
+            return back()->with('error', 'No Profile Picture Selected!');
         }
     }
 
