@@ -11,6 +11,7 @@ use App\Models\Role;
 use GuzzleHttp\Promise\TaskQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -118,10 +119,13 @@ class UserController extends Controller
 
     public function update_photo(Request $request, $id)
     {
+        $old = User::find($id);
+        Storage::disk('public')->delete($old->photo);
+
         if ($request->hasFile('upload')) {
             $formFields['photo'] = $request->file('upload')->store('photos', 'public');
             User::find($id)->update($formFields);
-            return back()->with('message', 'Profile picture update Successfully!');
+            return back()->with('message', 'Profile picture updated Successfully!');
         }
     }
 

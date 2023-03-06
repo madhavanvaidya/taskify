@@ -31,20 +31,17 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label" for="status">Status</label>
+                        <label class="form-label" for="status_id">Status</label>
                         <div class="input-group">
-                            <select class="form-select" id="status" name="status">
-                                <option value="{{ $project->status }}">{{ $project->status }}</option>
-                                <option value="ongoing">Ongoing</option>
-                                <option value="onhold">On Hold</option>
-                                <option value="started">Started</option>
-                                <option value="completed">Completed</option>
-                                <option value="cancelled">cancelled</option>
+                            <select class="form-select" id="status_id" name="status_id">
+                            @foreach($statuses as $status)
+                                <option value="{{$status->id}}" <?php if($project->status->id == $status->id){ print_r('selected');} ?>>{{$status->title}} ({{$status->color}})</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
 
-                    @error('status')
+                    @error('status_id')
                     <p class="text-danger text-xs mt-1">{{ $message }}</p>
                     @enderror
 

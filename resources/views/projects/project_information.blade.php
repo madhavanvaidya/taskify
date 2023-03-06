@@ -93,7 +93,7 @@
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="status">Status</label>
                                 <div class="input-group input-group-merge">
-                                    <input class="form-control" type="text" id="status" placeholder="" value="{{$project->status}}" readonly="">
+                                    <input class="form-control" type="text" id="status" placeholder="" value="{{$project->status->title}}" readonly="">
                                 </div>
                             </div>
 

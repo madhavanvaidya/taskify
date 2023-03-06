@@ -69,7 +69,7 @@
 
                         </div>
                     </div>
-                    <span class='badge bg-label-{{config("taskhub.project_status_labels")[$project->status]}} me-1'> {{$project->status}}</span>
+                    <span class='badge bg-label-{{$project->status->color}} me-1'> {{$project->status->title}}</span>
 
                     <div class="my-4 d-flex justify-content-between">
                         <span><i class='bx bx-task'></i> <b>{{count($project->tasks)}} </b>Task(s)</span>

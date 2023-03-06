@@ -11,7 +11,7 @@ class Project extends Model
 
     protected $fillable = [
         'title',
-        'status',
+        'status_id',
         'budget',
         'start_date',
         'end_date',
@@ -39,5 +39,9 @@ class Project extends Model
     public function clients()
     {
         return $this->belongsToMany(Client::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(Status::class,);
     }
 }

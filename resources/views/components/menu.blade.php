@@ -69,7 +69,7 @@
             </a>
         </li>
 
-        <li class="menu-item {{ Request::is('todo') || Request::is('todo/*') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('todos') || Request::is('todos/*') ? 'active' : '' }}">
             <a href="/todos" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-list-check'></i>
                 <div>Todo</div>

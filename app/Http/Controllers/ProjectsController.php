@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\ProjectUser;
 use App\Models\ProjectClient;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Contracts\Session\Session;
@@ -44,8 +45,9 @@ class ProjectsController extends Controller
     {
         $users = User::all();
         $clients = Client::all();
+        $statuses = Status::all();
 
-        return view('projects.create_project', ['users' => $users, 'clients' => $clients]);
+        return view('projects.create_project', ['users' => $users, 'clients' => $clients, 'statuses' => $statuses]);
     }
 
     /**
@@ -59,7 +61,7 @@ class ProjectsController extends Controller
 
         $formFields = $request->validate([
             'title' => ['required'],
-            'status' => ['required'],
+            'status_id' => ['required'],
             'budget' => ['required'],
             'start_date' => ['required'],
             'end_date' => ['required'],
@@ -102,8 +104,9 @@ class ProjectsController extends Controller
         $project = Project::find($id);
         $users = User::all();
         $clients = Client::all();
+        $statuses = Status::all();
 
-        return view('projects.update_project', ["project" => $project, "users" => $users, "clients" => $clients]);
+        return view('projects.update_project', ["project" => $project, "users" => $users, "clients" => $clients, 'statuses' => $statuses]);
     }
 
     /**
@@ -117,7 +120,7 @@ class ProjectsController extends Controller
     {
         $formFields = $request->validate([
             'title' => ['required'],
-            'status' => ['required'],
+            'status_id' => ['required'],
             'budget' => ['required'],
             'start_date' => ['required'],
             'end_date' => ['required'],
@@ -156,7 +159,6 @@ class ProjectsController extends Controller
 
         $projects = Project::when($search, function ($query) use ($search) {
             return $query->where('title', 'like', '%' . $search . '%')
-                ->orWhere('status', 'like', '%' . $search . '%')
                 ->orWhere('id', 'like', '%' . $search . '%');
         });
 
@@ -170,7 +172,7 @@ class ProjectsController extends Controller
                     'title' => "<a href='/projects/information/" . $project->id . "'><strong>" . $project->title . "</strong></a>",
                     'users' => $project->users,
                     'clients' => $project->clients,
-                    'status' => "<span class='badge bg-label-" . config('taskhub.project_status_labels')[$project->status] . " me-1'>" . $project->status . "</span>",
+                    'status' => "<span class='badge bg-label-" .$project->status->color . " me-1'>" . $project->status->title . "</span>",
                 ]
             );
         foreach ($projects->items() as $project => $collection) {
