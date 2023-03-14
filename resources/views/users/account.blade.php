@@ -98,12 +98,12 @@
 
 
                             <div class="mb-3 col-md-6">
-                                <label class="form-label" for="role_id">Role</label>
+                                <label class="form-label" for="role">Role</label>
                                 <div class="input-group">
-                                    <select class="form-select" id="role_id" name="role_id">
+                                    <select class="form-select text-capitalize" id="role" name="role">
                                         @foreach ($roles as $role)
 
-                                        <option value="{{$role->id}}" <?php if($user->role->id == $role->id){ echo 'selected'; }  ?>>{{$role->title}}</option>
+                                        <option value="{{$role->id}}" <?php if($user->getRoleNames()->first() == $role->name){ echo 'selected'; }  ?>>{{$role->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

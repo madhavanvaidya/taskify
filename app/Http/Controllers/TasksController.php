@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class TasksController extends Controller
 {
     /**
@@ -82,9 +85,12 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::find($id);
-
-        return view('tasks.update_task', ["task" => $task]);
+        if (auth()->user()->roles->first()->hasPermissionTo('edit_tasks')) {
+            $task = Task::find($id);
+            return view('tasks.update_task', ["task" => $task]);
+        } else {
+            return back()->with('error', 'You are not authorised!');
+        }
     }
 
     /**
@@ -120,8 +126,13 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        Task::find($id)->delete();
-        return back()->with('message', 'Task deleted Successfully!');
+        if (auth()->user()->roles->first()->hasPermissionTo('delete_tasks')) {
+            Task::find($id)->delete();
+            return response()->json(['success' => true]);
+        }
+        else{
+            return back()->with('error', 'You are not authorised!');
+        }
     }
 
     public function list()

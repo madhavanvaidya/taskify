@@ -33,11 +33,11 @@
                         <div class="input-group">
                             <select class="form-select" id="status_id" name="status_id">
                                 @foreach($statuses as $status)
-                                <option value="{{$status->id}}">{{$status->title}} ({{$status->color}})</option>
+                                <option value="{{$status->id}}" class="badge bg-label-{{$status->color}}">{{$status->title}} ({{$status->color}})</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div><a href="/status/create">+ Create new status</a></div>
+                        <div><a href="{{url('/status/create')}}">+ Create new status</a></div>
                     </div>
 
                     @error('status_id')

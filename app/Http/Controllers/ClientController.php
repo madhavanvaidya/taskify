@@ -85,9 +85,12 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $client = Client::find($id);
-
-        return view('clients.update_client')->with('client', $client);
+        if (auth()->user()->roles->first()->hasPermissionTo('edit_clients')) {
+            $client = Client::find($id);
+            return view('clients.update_client')->with('client', $client);
+        } else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
     /**
@@ -126,10 +129,13 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        Client::find($id)->delete();
-
-
-        return back()->with('message', 'Client deleted Successfully!');
+        if (auth()->user()->roles->first()->hasPermissionTo('delete_clients')) {
+            Client::find($id)->delete();
+            return back()->with('message', 'Client deleted Successfully!');
+        }
+        else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
 
@@ -142,14 +148,14 @@ class ClientController extends Controller
 
         $clients = Client::when($search, function ($query) use ($search) {
             return $query->where('first_name', 'like', '%' . $search . '%')
-            ->orWhere('last_name', 'like', '%' . $search . '%')
-            ->orWhere('company', 'like', '%' . $search . '%')
-            ->orWhere('id', 'like', '%' . $search . '%');
+                ->orWhere('last_name', 'like', '%' . $search . '%')
+                ->orWhere('company', 'like', '%' . $search . '%')
+                ->orWhere('id', 'like', '%' . $search . '%');
         });
 
-            $totalclients = $clients->count();
+        $totalclients = $clients->count();
 
-            $clients = $clients->orderBy($sort, $order)
+        $clients = $clients->orderBy($sort, $order)
             ->paginate(request("limit"))
 
             // ->withQueryString()

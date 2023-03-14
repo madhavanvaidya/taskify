@@ -10,9 +10,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a href="/tasks/edit/{{$task->id}}" class="card-link m-2"><i class='menu-icon tf-icons bx bxs-edit'></i> Edit Task</a></li>
-                        <li class="dropdown-item"><a href="" class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal">
+                        <li class="dropdown-item"><button class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal" data-id="{{ $task->id }}">
                                 <i class='menu-icon tf-icons bx bxs-trash'></i> Delete Task
-                            </a></li>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -32,9 +33,7 @@
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <a href="/tasks/destroy/{{$task->id}}">
-                            <button type="submit" class="btn btn-primary">Yes</button>
-                        </a>
+                        <button type="button" class="btn btn-danger" id="confirm-delete-btn">Delete</button>
                     </div>
                 </div>
             </div>
@@ -72,3 +71,26 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#smallModal').on('show.bs.modal', function(event) {
+            var taskId = button.data('id');
+            $(this).find('#confirm-delete-btn').attr('data-id', taskId);
+        });
+
+        $('#confirm-delete-btn').click(function() {
+            var taskId = $(this).data('id');
+            $.ajax({
+                type: 'DELETE',
+                url: '/tasks/destroy/' + taskId,
+                success: function() {
+                    location.reload(); // Reload page or update UI as needed
+                },
+                error: function() {
+                    // Handle error
+                }
+            });
+        });
+    });
+</script>

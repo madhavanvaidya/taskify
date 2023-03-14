@@ -9,7 +9,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between">
         <h4 class="fw-bold mb-0">
-            <span class="text-muted fw-light">Status /</span>Create New Status
+            <span class="text-muted fw-light">Status / </span>Create New Status
         </h4>
     </div>
 

@@ -27,10 +27,10 @@ return [
     ],
 
     'role_labels' => [
-        'Admin' => "info",
+        'admin' => "info",
         "Super Admin" => "danger",
         "HR" => "primary",
-        "Team Member" => "warning"
+        "member" => "warning"
     ],
 
     'priority_labels' => [

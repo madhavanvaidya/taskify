@@ -7,7 +7,7 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\TaskUser;
 use App\Models\User;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use GuzzleHttp\Promise\TaskQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
@@ -26,6 +26,7 @@ class UserController extends Controller
         $clients = Client::all();
         $projects = Project::all();
         $tasks = Task::all();
+        
         return view('index', ['users' => $users, 'clients' => $clients, 'projects' => $projects, 'tasks' => $tasks]);
     }
 
@@ -36,7 +37,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('register');
+        return view('auth.register');
     }
 
     /**
@@ -56,10 +57,11 @@ class UserController extends Controller
 
         $formFields['password'] = bcrypt($formFields['password']);
         $formFields['photo'] = "photos/no-image.png";
-        $formFields['role_id'] = 4;
+        
 
         $user = User::create($formFields);
-
+        $user->assignRole('member');
+        
         auth()->login($user);
 
         return redirect('/')->with('message', 'Registered Successfully!');
@@ -103,7 +105,6 @@ class UserController extends Controller
             'first_name' => ['required'],
             'last_name' => ['required'],
             'phone' => 'required',
-            'role_id' => 'required',
             'address' => 'required',
             'city' => 'required',
             'state' => 'required',
@@ -113,6 +114,7 @@ class UserController extends Controller
         $user = User::find($id);
 
         $user->update($formFields);
+        $user->syncRoles($request->input('role'));
 
         return back()->with('message', 'Profile details updated Successfully!');
     }
@@ -159,7 +161,7 @@ class UserController extends Controller
 
     public function login()
     {
-        return view('login');
+        return view('auth.login');
     }
 
     public function authenticate(Request $request)
@@ -206,7 +208,7 @@ class UserController extends Controller
                 'id' => $user->id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                'role' => "<span class='badge bg-label-" . config('taskhub.role_labels')[$user->role->title] . " me-1'>" . $user->role->title . "</span>",
+                'role' => "<span class='badge bg-label-" . config('taskhub.role_labels')[$user->getRoleNames()->first()] . " me-1'>" . $user->getRoleNames()->first() . "</span>",
                 'email' => $user->email,
                 'phone' => $user->phone,
                 'photo' => "<div class='avatar avatar-md pull-up' title='" . $user->first_name . " " . $user->last_name . "'>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\TasksController;
@@ -140,3 +141,9 @@ Route::delete('/todos/destroy/{id}', [TodosController::class, 'destroy']);
 Route::get('/status/create', [StatusController::class, 'create']);
 
 Route::post('/status/store', [StatusController::class, 'store']);
+
+//---------------------------------------------------------------
+
+Route::get('/password/request', [ForgotPasswordController::class, 'showLinkRequestForm']);
+
+Route::post('/password/reset', [ForgotPasswordController::class, 'sendResetLinkEmail']);

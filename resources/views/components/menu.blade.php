@@ -89,6 +89,14 @@
                 <div>Clients</div>
             </a>
         </li>
+        @role('admin')
+        <li class="menu-item {{ Request::is('settings') || Request::is('settings/*') ? 'active' : '' }}">
+            <a href="/settings" class="menu-link">
+            <i class='menu-icon tf-icons bx bx-cog'></i>
+                <div>Settings</div>
+            </a>
+        </li>
+        @endrole
     </ul>
 </aside>
 

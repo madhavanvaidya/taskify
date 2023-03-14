@@ -26,7 +26,6 @@ class ProjectsController extends Controller
         $projects = Project::latest()->paginate(6);
 
         return view('projects.grid_view', ['projects' => $projects]);
-        
     }
 
     public function list_view()
@@ -89,6 +88,7 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
+
         $project = Project::find($id);;
         return view('projects.project_information', ['project' => $project]);
     }
@@ -101,12 +101,15 @@ class ProjectsController extends Controller
      */
     public function edit($id)
     {
-        $project = Project::find($id);
-        $users = User::all();
-        $clients = Client::all();
-        $statuses = Status::all();
-
-        return view('projects.update_project', ["project" => $project, "users" => $users, "clients" => $clients, 'statuses' => $statuses]);
+        if (auth()->user()->roles->first()->hasPermissionTo('edit_projects')) {
+            $project = Project::find($id);
+            $users = User::all();
+            $clients = Client::all();
+            $statuses = Status::all();
+            return view('projects.update_project', ["project" => $project, "users" => $users, "clients" => $clients, 'statuses' => $statuses]);
+        } else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
     /**
@@ -146,8 +149,13 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
-        Project::find($id)->delete();
-        return back()->with('message', 'Project deleted Successfully!');
+        if (auth()->user()->roles->first()->hasPermissionTo('delete_projects')) {
+            Project::find($id)->delete();
+            return back()->with('message', 'Project deleted Successfully!');
+        }
+        else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
 
@@ -172,7 +180,7 @@ class ProjectsController extends Controller
                     'title' => "<a href='/projects/information/" . $project->id . "'><strong>" . $project->title . "</strong></a>",
                     'users' => $project->users,
                     'clients' => $project->clients,
-                    'status' => "<span class='badge bg-label-" .$project->status->color . " me-1'>" . $project->status->title . "</span>",
+                    'status' => "<span class='badge bg-label-" . $project->status->color . " me-1'>" . $project->status->title . "</span>",
                 ]
             );
         foreach ($projects->items() as $project => $collection) {
@@ -254,14 +262,16 @@ class ProjectsController extends Controller
         ]);
     }
 
-    public function taskBoard($id) {
+    public function taskBoard($id)
+    {
         $project = Project::find($id);
         $tasks = $project->tasks;
-        return view('projects.task_board', ['project'=>$project, 'tasks'=>$tasks]);
+        return view('projects.task_board', ['project' => $project, 'tasks' => $tasks]);
     }
 
-    public function taskList($id) {
+    public function taskList($id)
+    {
         $project = Project::find($id);
-        return view('projects.task_list', ['project'=>$project]);
+        return view('projects.task_list', ['project' => $project]);
     }
 }
