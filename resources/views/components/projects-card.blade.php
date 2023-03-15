@@ -18,6 +18,8 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     window.icons = {
         refresh: 'bx-refresh',
@@ -35,7 +37,7 @@
             '<i class="bx bx-edit-alt mx-1">'+
             '</i>'+
             '</a>'+
-            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal">'+
+            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal" id="delete-project" data-id="'+ row.id +'">'+
                                 '<i class="bx bx-trash mx-1"></i>'+
                             '</button>'+
 
@@ -54,9 +56,7 @@
                                             '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">'+
                                                 'Close'+
                                             '</button>'+
-                                            '<a href="/projects/destroy/'+row.id+'">'+
-                                                '<button type="submit" class="btn btn-primary">Yes</button>'+
-                                            '</a>'+
+                                                '<button type="submit" class="btn btn-primary" id="confirmDelete">Yes</button>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+
@@ -71,6 +71,31 @@
     function userFormatter(value, row, index) {
         return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">'+row.users]
     }
+
+    $(document).on('click', '#delete-project', function() {
+        var id = $(this).data('id');
+        $('#smallModal').modal('show'); // show the confirmation modal
+        $('#smallModal').on('click', '#confirmDelete', function() {
+            $.ajax({
+                url: '/projects/destroy/' + id,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#smallModal').modal('hide');
+                    toastr.warning(response.message); // show a success message
+                    // hide the modal
+                    setTimeout(function() {
+                        location.reload(); // reload the page after a delay
+                    }, 2000);
+                },
+                error: function() {
+                    toastr.error('There was a problem deleting the todo.');
+                }
+            });
+        });
+    });
 </script>
 
 <!-- / projects -->

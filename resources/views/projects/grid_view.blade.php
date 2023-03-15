@@ -36,7 +36,7 @@
                                         <a href="{{url('/projects/edit/' . $project->id)}}" class="card-link m-2"><i class='menu-icon tf-icons bx bxs-edit'></i> Edit project</a>
                                     </li>
                                     <li class="dropdown-item">
-                                        <a href="" class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal">
+                                        <a href="" class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal" id="delete-project" data-id="{{$project->id}}">
                                             <i class='menu-icon tf-icons bx bxs-trash'></i> Delete project
                                         </a>
                                     </li>
@@ -58,9 +58,7 @@
                                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                                 Close
                                             </button>
-                                            <a href="/projects/destroy/{{$project->id}}">
-                                                <button type="submit" class="btn btn-primary">Yes</button>
-                                            </a>
+                                                <button type="submit" class="btn btn-primary" id="confirmDelete">Yes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -153,3 +151,31 @@
 </div>
 
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '#delete-project', function() {
+        var id = $(this).data('id');
+        $('#smallModal').modal('show'); // show the confirmation modal
+        $('#smallModal').on('click', '#confirmDelete', function() {
+            $.ajax({
+                url: '/projects/destroy/' + id,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#smallModal').modal('hide');
+                    toastr.warning(response.message); // show a success message
+                    // hide the modal
+                    setTimeout(function() {
+                        location.reload(); // reload the page after a delay
+                    }, 2000);
+                },
+                error: function() {
+                    toastr.error('There was a problem deleting the todo.');
+                }
+            });
+        });
+    });
+</script>

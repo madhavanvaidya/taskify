@@ -109,6 +109,6 @@ class TodosController extends Controller
     public function destroy($id)
     {
         Todo::where('id', $id)->delete();
-        return back()->with('message', 'Todo deleted Successfully!');
+        return response()->json(['message' => 'Todo deleted successfully!']);
     }
 }

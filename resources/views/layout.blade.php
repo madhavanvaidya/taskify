@@ -40,13 +40,13 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{asset('assets/js/config.js')}}"></script>
 
+
+
 </head>
 
 <body onload="init()">
 
-    <div class="top-0 end-0 m-2 fixed">
-        <x-toast />
-    </div>
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
 
@@ -60,7 +60,6 @@
             <div class="layout-page">
 
                 @include('partials._navbar')
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     @auth
@@ -125,6 +124,46 @@
     <!-- Dragula -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.css">
+
+    <!-- Toastr -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    @if(session()->has('message'))
+
+
+    <script>
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "progressBar": true,
+            "extendedTimeOut": "1000",
+            "closeButton": true
+        };
+
+        toastr.success('{{session("message")}}', 'Success');
+    </script>
+
+    @elseif(session()->has('error'))
+
+    <script>
+        toastr.options = {
+            "positionClass": "toast-top-right",
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "progressBar": true,
+            "extendedTimeOut": "1000",
+            "closeButton": true
+        };
+
+        toastr.error('{{session("error")}}', 'Error');
+    </script>
+
+    @endif
+
 
 </body>
 

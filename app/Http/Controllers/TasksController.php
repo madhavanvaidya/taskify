@@ -34,9 +34,13 @@ class TasksController extends Controller
      */
     public function create($id)
     {
-        $project = Project::find($id);
-
-        return view('tasks.create_task', ['project' => $project]);
+        if (auth()->user()->roles->first()->hasPermissionTo('create_tasks')) {
+            $project = Project::find($id);
+            return view('tasks.create_task', ['project' => $project]);
+        }
+        else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
     /**
@@ -128,9 +132,8 @@ class TasksController extends Controller
     {
         if (auth()->user()->roles->first()->hasPermissionTo('delete_tasks')) {
             Task::find($id)->delete();
-            return response()->json(['success' => true]);
-        }
-        else{
+            return response()->json(['message' => 'Task deleted successfully!']);
+        } else {
             return back()->with('error', 'You are not authorised!');
         }
     }

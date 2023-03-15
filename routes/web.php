@@ -66,7 +66,7 @@ Route::get('/clients/edit/{id}', [ClientController::class, 'edit']);
 
 Route::put('/clients/update/{id}', [ClientController::class, 'update']);
 
-Route::get('/clients/destroy/{id}', [ClientController::class, 'destroy']);
+Route::delete('/clients/destroy/{id}', [ClientController::class, 'destroy']);
 
 Route::get('/clients/list', [ClientController::class, 'list']);
 
@@ -88,7 +88,7 @@ Route::get('/projects/edit/{id}', [ProjectsController::class, 'edit']);
 
 Route::put('/projects/update/{id}', [ProjectsController::class, 'update']);
 
-Route::get('/projects/destroy/{id}', [ProjectsController::class, 'destroy']);
+Route::delete('/projects/destroy/{id}', [ProjectsController::class, 'destroy']);
 
 Route::get('/projects/list', [ProjectsController::class, 'list']);
 
@@ -112,7 +112,7 @@ Route::get('/tasks/edit/{id}', [TasksController::class, 'edit']);
 
 Route::put('/tasks/update/{id}', [TasksController::class, 'update']);
 
-Route::get('/tasks/destroy/{id}', [TasksController::class, 'destroy']);
+Route::delete('/tasks/destroy/{id}', [TasksController::class, 'destroy']);
 
 Route::get('/tasks/list', [TasksController::class, 'list']);
 
@@ -147,3 +147,9 @@ Route::post('/status/store', [StatusController::class, 'store']);
 Route::get('/password/request', [ForgotPasswordController::class, 'showLinkRequestForm']);
 
 Route::post('/password/reset', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+
+//---------------------------------------------------------------
+
+Route::get('/settings', function(){
+    return view('settings');
+});

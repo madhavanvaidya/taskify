@@ -10,9 +10,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item"><a href="/tasks/edit/{{$task->id}}" class="card-link m-2"><i class='menu-icon tf-icons bx bxs-edit'></i> Edit Task</a></li>
-                        <li class="dropdown-item"><button class="m-2" data-bs-toggle="modal" data-bs-target="#smallModal" data-id="{{ $task->id }}">
+                        <li class="dropdown-item"><a href="" class="card-link m-2" id="delete-task" data-bs-toggle="modal" data-bs-target="#smallModal" data-id="{{ $task->id }}">
                                 <i class='menu-icon tf-icons bx bxs-trash'></i> Delete Task
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -33,7 +33,7 @@
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
-                        <button type="button" class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+                        <button type="submit" class="btn btn-danger" id="confirmDelete">Delete</button>
                     </div>
                 </div>
             </div>
@@ -72,23 +72,29 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $('#smallModal').on('show.bs.modal', function(event) {
-            var taskId = button.data('id');
-            $(this).find('#confirm-delete-btn').attr('data-id', taskId);
-        });
 
-        $('#confirm-delete-btn').click(function() {
-            var taskId = $(this).data('id');
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).on('click', '#delete-task', function() {
+        var id = $(this).data('id');
+        $('#smallModal').modal('show'); // show the confirmation modal
+        $('#smallModal').on('click', '#confirmDelete', function() {
             $.ajax({
+                url: '/tasks/destroy/' + id,
                 type: 'DELETE',
-                url: '/tasks/destroy/' + taskId,
-                success: function() {
-                    location.reload(); // Reload page or update UI as needed
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#smallModal').modal('hide');
+                    toastr.warning(response.message); // show a success message
+                    // hide the modal
+                    setTimeout(function() {
+                        location.reload(); // reload the page after a delay
+                    }, 2000);
                 },
                 error: function() {
-                    // Handle error
+                    toastr.error('There was a problem deleting the todo.');
                 }
             });
         });

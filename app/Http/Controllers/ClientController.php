@@ -28,7 +28,12 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('clients.create_client');
+        if (auth()->user()->roles->first()->hasPermissionTo('create_clients')) {
+            return view('clients.create_client');
+        }
+        else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
     /**
@@ -131,9 +136,8 @@ class ClientController extends Controller
     {
         if (auth()->user()->roles->first()->hasPermissionTo('delete_clients')) {
             Client::find($id)->delete();
-            return back()->with('message', 'Client deleted Successfully!');
-        }
-        else {
+            return response()->json(['message' => 'Client deleted Successfully!']);
+        } else {
             return back()->with('error', 'You are not Authorised!');
         }
     }

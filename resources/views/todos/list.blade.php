@@ -56,34 +56,32 @@
                             <div class="d-flex">
                                 <a href="{{url('/todos/edit/' . $todo->id)}}" class="card-link m-2"><i class='bx bxs-edit'></i></a>
 
-                                <form action="{{url('/todos/destroy/' . $todo->id)}}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn form-control"><i class='bx bxs-trash'></i></button>
-                                </form>
-                            </div>
-                            <!-- delete project modal -->
-                            <!-- <div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">
-                            <div class="modal-dialog modal-sm" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h6 class="modal-title" id="exampleModalLabel2">Warning!</h6>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Are you sure you want to delete this Todo?</p>
-                                        <input type="hidden" id="delete_id" name="delete_id" value="">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                            Close
-                                        </button>
 
-                                        <button type="submit" class="btn btn-danger" onclick="submitForm()">Yes</button>
+                                <button type="button" id="delete-todo" data-id="{{$todo->id}}" class="btn form-control" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class='bx bxs-trash'></i></button>
+
+                            </div>
+                            <!-- delete todo modal -->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h6 class="modal-title" id="exampleModalLabel2">Warning!</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this Todo?</p>
+                                            <input type="hidden" id="delete_id" name="delete_id" value="">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+
+                                            <button type="submit" class="btn btn-danger" id="confirmDelete">Yes</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
                             <!-- -------------------- -->
 
                         </td>
@@ -95,13 +93,35 @@
         </div>
     </div>
 </div>
-<!-- 
-<script>
-    function submitForm() {
-        document.getElementById('deleteForm').submit();
-    }
-</script> -->
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).on('click', '#delete-todo', function() {
+        var id = $(this).data('id');
+        $('#deleteModal').modal('show'); // show the confirmation modal
+        $('#deleteModal').on('click', '#confirmDelete', function() {
+            $.ajax({
+                url: '/todos/destroy/' + id,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#deleteModal').modal('hide');
+                    toastr.warning(response.message); // show a success message
+                    // hide the modal
+                    setTimeout(function() {
+                        location.reload(); // reload the page after a delay
+                    }, 2000);
+                },
+                error: function() {
+                    toastr.error('There was a problem deleting the todo.');
+                }
+            });
+        });
+    });
+</script>
 
 
 @endsection

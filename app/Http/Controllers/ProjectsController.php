@@ -42,11 +42,16 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        $users = User::all();
-        $clients = Client::all();
-        $statuses = Status::all();
+        if (auth()->user()->roles->first()->hasPermissionTo('create_projects')) {
+            $users = User::all();
+            $clients = Client::all();
+            $statuses = Status::all();
 
-        return view('projects.create_project', ['users' => $users, 'clients' => $clients, 'statuses' => $statuses]);
+            return view('projects.create_project', ['users' => $users, 'clients' => $clients, 'statuses' => $statuses]);
+        }
+        else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
     /**
@@ -151,9 +156,8 @@ class ProjectsController extends Controller
     {
         if (auth()->user()->roles->first()->hasPermissionTo('delete_projects')) {
             Project::find($id)->delete();
-            return back()->with('message', 'Project deleted Successfully!');
-        }
-        else {
+            return response()->json(['message'=> 'Project deleted Successfully!']);
+        } else {
             return back()->with('error', 'You are not Authorised!');
         }
     }

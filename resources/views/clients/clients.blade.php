@@ -36,6 +36,8 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     window.icons = {
         refresh: 'bx-refresh'
@@ -51,12 +53,12 @@
             '<i class="bx bx-edit-alt mx-1">' +
             '</i>' +
             '</a>' +
-            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal">' +
+            '<button type="button" class="btn" id="delete-client" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="'+ row.id +'">' +
             '<i class="bx bx-trash mx-1"></i>' +
             '</button>' +
 
 
-            '<div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">' +
+            '<div class="modal fade" id="deleteModal" tabindex="-1" style="display: none;" aria-hidden="true">' +
             '<div class="modal-dialog modal-sm" role="document">' +
             '<div class="modal-content">' +
             '<div class="modal-header">' +
@@ -70,9 +72,7 @@
             '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">' +
             'Close' +
             '</button>' +
-            '<a href="/clients/destroy/' + row.id + '">' +
-            '<button type="submit" class="btn btn-primary">Yes</button>' +
-            '</a>' +
+            '<button type="submit" class="btn btn-primary" id="confirmDelete">Yes</button>' +
             '</div>' +
             '</div>' +
             '</div>' +
@@ -92,6 +92,31 @@
     function assignedFormatter(value, row, index) {
         return '<div class="mx-4"><span class="badge rounded-pill bg-primary" style="width: 50%;">' + row.projects + '</span><div>Projects</div></div>'
     }
+
+    $(document).on('click', '#delete-client', function() {
+        var id = $(this).data('id');
+        $('#deleteModal').modal('show'); // show the confirmation modal
+        $('#deleteModal').on('click', '#confirmDelete', function() {
+            $.ajax({
+                url: '/clients/destroy/' + id,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#deleteModal').modal('hide');
+                    toastr.warning(response.message); // show a success message
+                    // hide the modal
+                    setTimeout(function() {
+                        location.reload(); // reload the page after a delay
+                    }, 2000);
+                },
+                error: function() {
+                    toastr.error('There was a problem deleting the client.');
+                }
+            });
+        });
+    });
 </script>
 
 @endsection

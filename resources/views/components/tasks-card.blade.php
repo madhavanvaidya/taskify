@@ -23,6 +23,8 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     window.icons = {
         refresh: 'bx-refresh'
@@ -38,7 +40,7 @@
             '<i class="bx bx-edit-alt mx-1">'+
             '</i>'+
             '</a>'+
-            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal">'+
+            '<button type="button" class="btn" data-bs-toggle="modal" id="delete-task" data-bs-target="#smallModal" data-id="'+ row.id +'">'+
                                 '<i class="bx bx-trash mx-1"></i>'+
                             '</button>'+
 
@@ -57,12 +59,10 @@
                                             '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">'+
                                                 'Close'+
                                             '</button>'+
-                                            '<a href="/tasks/destroy/'+row.id+'">'+
-                                                '<button type="submit" class="btn btn-primary">Yes</button>'+
-                                            '</a>'+
+                                                '<button type="submit" class="btn btn-primary" id="confirmDelete">Yes</button>'+
                                         '</div>'+
                                     '</div>'+
-                               '</div>'+
+                                '</div>'+
                             '</div>'
         ]
     }
@@ -84,6 +84,32 @@
             search: p.search
         };
     }
+
+    $(document).on('click', '#delete-task', function() {
+        var id = $(this).data('id');
+        $('#smallModal').modal('show'); // show the confirmation modal
+        $('#smallModal').on('click', '#confirmDelete', function() {
+            $.ajax({
+                url: '/tasks/destroy/' + id,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    $('#smallModal').modal('hide');
+                    toastr.warning(response.message); // show a success message
+                    // hide the modal
+                    setTimeout(function() {
+                        location.reload(); // reload the page after a delay
+                    }, 2000);
+                },
+                error: function() {
+                    toastr.error('There was a problem deleting the todo.');
+                }
+            });
+        });
+    });
 </script>
 
 <!-- / tasks -->
+
