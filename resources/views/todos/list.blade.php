@@ -54,10 +54,10 @@
                         </td>
                         <td>
                             <div class="d-flex">
-                                <a href="{{url('/todos/edit/' . $todo->id)}}" class="card-link m-2"><i class='bx bxs-edit'></i></a>
+                                <a href="{{url('/todos/edit/' . $todo->id)}}" class="card-link"><i class='bx bxs-edit'></i></a>
 
 
-                                <button type="button" id="delete-todo" data-id="{{$todo->id}}" class="btn form-control" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class='bx bxs-trash'></i></button>
+                                <a href="" type="button" id="delete-todo" data-id="{{$todo->id}}" class="card-link mx-4" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class='bx bxs-trash'></i></a>
 
                             </div>
                             <!-- delete todo modal -->
