@@ -65,7 +65,7 @@
         </p>
         <div class="d-flex justify-content-between">
             <div class="input-group input-group-merge">
-                <span class='badge bg-label-{{config("taskhub.task_status_labels")[$task->status]}} me-1'> {{$task->status}}</span>
+                <span class='badge bg-label-{{config("taskhub.task_status_labels")[$task->status]}} me-1' id="status"> {{$task->status}}</span>
             </div>
             <small class="float-right" style="font-size: small; width: 120px">{{$task->due_date}}</small>
         </div>

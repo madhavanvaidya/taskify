@@ -19,7 +19,8 @@ class Task extends Model
         'user_id',
     ];
 
-    public function project() {
+    public function project()
+    {
         return $this->belongsTo(Project::class, 'project_id');
     }
 
@@ -28,4 +29,15 @@ class Task extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function getresult()
+    {
+        return substr($this->title, 0, 100);
+    }
+
+    public function getlink()
+    {
+        return str('/tasks/information/'.$this->id);
+    }
+
+    
 }

@@ -43,7 +43,7 @@
                         <div class="mb-3 col-md-6">
                             <label class="form-label" for="role">Role</label>
                             <div class="input-group input-group-merge">
-                                <input class="form-control" type="text" id="role" placeholder="" value="{{$user->role->title}}" readonly="">
+                                <input class="form-control text-capitalize" type="text" id="role" placeholder="" value="{{$user->getRoleNames()->first()}}" readonly="">
                             </div>
                         </div>
 

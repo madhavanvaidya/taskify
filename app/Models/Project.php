@@ -44,4 +44,14 @@ class Project extends Model
     public function status() {
         return $this->belongsTo(Status::class,);
     }
+
+    public function getresult()
+    {
+        return substr($this->title, 0, 100);
+    }
+
+    public function getlink()
+    {
+        return str('/projects/information/'.$this->id);
+    }
 }

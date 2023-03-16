@@ -80,4 +80,14 @@ class User extends Authenticatable
     public function todos() {
         return $this->hasMany(Todo::class);
     }
+
+    public function getresult()
+    {
+        return str($this->first_name." ".$this->last_name);
+    }
+
+    public function getlink()
+    {
+        return str('/users/profile/show/'.$this->id);
+    }
 }
