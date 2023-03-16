@@ -9,8 +9,8 @@
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         <div class="nav-item d-flex align-items-center">
-            <form method="GET" action="/search" class="d-flex align-items-center mx-0">
-                <button type="submit" class="btn btn-default"><i class="bx bx-search fs-4 lh-0"></i></button>
+            <form method="GET" action="/search" class="d-flex align-items-center m-0">
+                <button type="submit" class="btn btn-default p-0"><i class="bx bx-search fs-4 lh-0"></i></button>
                 <input type="text" name="query" value="<?php if(isset($query)){print_r($query);} ?>"  class="form-control border-0 shadow-none" id="search-input" placeholder="Search...">
             </form>
         </div>
