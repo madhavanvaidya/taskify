@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('title')
-<?php echo auth()->user()->first_name."'s Account" ?>
+<?php echo auth()->user()->first_name . "'s Account" ?>
 @endsection
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-<div>
+    <div>
         <h4 class="fw-bold mb-0">
             <span class="text-muted fw-light">{{auth()->user()->first_name}} {{auth()->user()->last_name}} /</span> Account Settings
         </h4>
@@ -95,7 +95,7 @@
 
                             </div>
 
-
+                            @if(auth()->user()->getRoleNames()->first() == 'admin')
 
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="role">Role</label>
@@ -103,7 +103,9 @@
                                     <select class="form-select text-capitalize" id="role" name="role">
                                         @foreach ($roles as $role)
 
-                                        <option value="{{$role->id}}" <?php if($user->getRoleNames()->first() == $role->name){ echo 'selected'; }  ?>>{{$role->name}}</option>
+                                        <option value="{{$role->id}}" <?php if ($user->getRoleNames()->first() == $role->name) {
+                                                                            echo 'selected';
+                                                                        }  ?>>{{$role->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -113,6 +115,22 @@
                                 @enderror
 
                             </div>
+
+                            @else
+
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" for="role">Role</label>
+                                <div class="input-group input-group-merge">
+                                    <input class="form-control" type="text" id="exampleFormControlReadOnlyInput1" placeholder="" value="{{auth()->user()->getRoleNames()->first()}}" readonly="">
+                                </div>
+
+                                @error('role')
+                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                @enderror
+
+                            </div>
+
+                            @endif
 
 
 

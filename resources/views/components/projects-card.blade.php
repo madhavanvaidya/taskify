@@ -2,8 +2,12 @@
 
 <div class="card my-4">
     <div class="table-responsive text-nowrap">
+        {{$slot}}
+        @if (count($projects)==0)
+        <h5 class="card-header">No projects Found!</h5>
+        @else
         <div class="mx-2 mb-2">
-        <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/projects/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
+            <table id="table" data-toggle="table" data-loading-template="loadingTemplate" data-url="/projects/list" data-icons-prefix="bx" data-icons="icons" data-show-refresh="true" data-total-field="total" data-data-field="rows" data-page-list="[2, 4, 10, All]" data-search="true" data-pagination-side="server" data-pagination="true">
                 <thead>
                     <tr>
                         <th data-sortable="true" data-field="title">Title</th>
@@ -15,6 +19,7 @@
                 </thead>
             </table>
         </div>
+        @endif
     </div>
 </div>
 
@@ -33,43 +38,43 @@
 
     function actionsFormatter(value, row, index) {
         return [
-            '<a href="/projects/edit/'+row.id+'">'+
-            '<i class="bx bx-edit-alt mx-1">'+
-            '</i>'+
-            '</a>'+
-            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal" id="delete-project" data-id="'+ row.id +'">'+
-                                '<i class="bx bx-trash mx-1"></i>'+
-                            '</button>'+
+            '<a href="/projects/edit/' + row.id + '">' +
+            '<i class="bx bx-edit-alt mx-1">' +
+            '</i>' +
+            '</a>' +
+            '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#smallModal" id="delete-project" data-id="' + row.id + '">' +
+            '<i class="bx bx-trash mx-1"></i>' +
+            '</button>' +
 
 
-                            '<div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">'+
-                                '<div class="modal-dialog modal-sm" role="document">'+
-                                    '<div class="modal-content">'+
-                                        '<div class="modal-header">'+
-                                            '<h5 class="modal-title" id="exampleModalLabel2">Warning!</h5>'+
-                                            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">'+'</button>'+
-                                        '</div>'+
-                                        '<div class="modal-body">'+
-                                            '<p>Are you sure you want to delete this project?</p>'+
-                                        '</div>'+
-                                        '<div class="modal-footer">'+
-                                            '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">'+
-                                                'Close'+
-                                            '</button>'+
-                                                '<button type="submit" class="btn btn-primary" id="confirmDelete">Yes</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'
+            '<div class="modal fade" id="smallModal" tabindex="-1" style="display: none;" aria-hidden="true">' +
+            '<div class="modal-dialog modal-sm" role="document">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header">' +
+            '<h5 class="modal-title" id="exampleModalLabel2">Warning!</h5>' +
+            '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">' + '</button>' +
+            '</div>' +
+            '<div class="modal-body">' +
+            '<p>Are you sure you want to delete this project?</p>' +
+            '</div>' +
+            '<div class="modal-footer">' +
+            '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">' +
+            'Close' +
+            '</button>' +
+            '<button type="submit" class="btn btn-primary" id="confirmDelete">Yes</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
         ]
     }
 
     function clientFormatter(value, row, index) {
-        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">'+row.clients]
+        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">' + row.clients]
     }
 
     function userFormatter(value, row, index) {
-        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">'+row.users]
+        return ['<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">' + row.users]
     }
 
     $(document).on('click', '#delete-project', function() {

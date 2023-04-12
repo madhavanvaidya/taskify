@@ -7,14 +7,7 @@
                 document.write(new Date().getFullYear());
             </script>
             , made with ❤️ by
-            <a href="" target="_blank" class="footer-link fw-bolder">Infinitie Technologies</a>
-        </div>
-        <div>
-            <a href="/register" target="_blank" class="footer-link me-4">Register new user</a>
-
-            <a href="#" target="_blank" class="footer-link me-4">Documentation</a>
-
-            <a href="#" target="_blank" class="footer-link me-2">Support</a>
+            <a href="https://www.infinitietech.com/" target="_blank" class="footer-link fw-bolder">Infinitie Technologies</a>
         </div>
     </div>
 </footer>

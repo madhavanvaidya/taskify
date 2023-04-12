@@ -35,7 +35,7 @@
                         <div class="input-group">
                             <select class="form-select" id="status_id" name="status_id">
                             @foreach($statuses as $status)
-                                <option value="{{$status->id}}" <?php if($project->status->id == $status->id){ print_r('selected');} ?>>{{$status->title}} ({{$status->color}})</option>
+                                <option value="{{$status->id}}" class="badge bg-label-{{$status->color}}" <?php if($project->status->id == $status->id){ print_r('selected');} ?>>{{$status->title}} ({{$status->color}})</option>
                                 @endforeach
                             </select>
                         </div>

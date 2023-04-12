@@ -210,7 +210,7 @@ class ClientController extends Controller
                     'title' => "<a href='/projects/information/" . $project->id . "'><strong>" . $project->title . "</strong></a>",
                     'users' => $project->users,
                     'clients' => $project->clients,
-                    'status' => "<span class='badge bg-label-" . config('taskhub.project_status_labels')[$project->status] . " me-1'>" . $project->status . "</span>",
+                    'status' => "<span class='badge bg-label-" . $project->status->color . " me-1'>" . $project->status->title . "</span>",
                 ]
             );
 

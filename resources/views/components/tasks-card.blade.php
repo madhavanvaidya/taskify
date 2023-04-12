@@ -1,6 +1,7 @@
 
 <!-- tasks -->
 <div class="card my-4">
+    {{$slot}}
     <div class="table-responsive text-nowrap">
         @if (count($tasks)==0)
         <h5 class="card-header">No tasks Found!</h5>

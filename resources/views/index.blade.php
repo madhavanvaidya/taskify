@@ -94,11 +94,12 @@
 
 
     <!-- projects -->
-    <x-projects-card :projects="$projects" />
+    
+    <x-projects-card :projects="$projects"><h3 class="mx-4 mt-4">Projects</h3></x-projects-card>
     <!-- / projects -->
 
     <!-- tasks -->
-    <x-tasks-card :tasks="$tasks" />
+    <x-tasks-card :tasks="$tasks" ><h3 class="mx-4 mt-4">Tasks</h3></x-tasks-card>
     <!-- / tasks -->
 </div>
 @if(Session::has('message'))

@@ -30,7 +30,8 @@ return [
         'admin' => "info",
         "Super Admin" => "danger",
         "HR" => "primary",
-        "member" => "warning"
+        "member" => "warning",
+        'default' => "dark"
     ],
 
     'priority_labels' => [
@@ -38,4 +39,11 @@ return [
         "high" => "danger",
         "medium" => "warning"
     ],
+
+    'permissions' => [
+        'Projects' =>  array('create_projects', 'manage_projects', 'edit_projects', 'delete_projects'),
+        'Tasks' =>  array('create_tasks', 'manage_tasks', 'edit_tasks', 'delete_tasks'),
+        'Users' =>  array('create_users', 'manage_users', 'edit_users', 'delete_users'),
+        'Clients' =>  array('create_clients', 'manage_clients', 'edit_clients', 'delete_clients')
+    ]
 ];

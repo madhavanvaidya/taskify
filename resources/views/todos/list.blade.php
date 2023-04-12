@@ -12,7 +12,7 @@
             {{auth()->user()->first_name}}'s Todo List <span class="text-muted fw-light">/</span>
         </h4>
         <div>
-            <a href="{{url('/todos/create')}}"><button type="button" class="btn btn-sm btn-primary">Add new TODO</button></a>
+            <a href="{{url('/todos/create')}}"><button type="button" class="btn btn-sm btn-primary">Add new Todo</button></a>
         </div>
     </div>
 

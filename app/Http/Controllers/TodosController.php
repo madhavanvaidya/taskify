@@ -14,8 +14,17 @@ class TodosController extends Controller
      */
     public function index()
     {
+        $priorityValues = [
+            'low' => 1,
+            'medium' => 2,
+            'high' => 3,
+        ];
+
         $id = auth()->user()->id;
         $todos = Todo::all()->where('user_id', $id);
+        $todos = $todos->sortByDesc(function ($todo) use ($priorityValues) {
+            return $priorityValues[$todo->priority];
+        });
         return view('todos.list', ['todos' => $todos]);
     }
 

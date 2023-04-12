@@ -33,7 +33,7 @@ class Client extends Model
 
     public function getresult()
     {
-        return substr($this->first_name, 0, 100);
+        return str($this->first_name." ".$this->last_name);
     }
 
     public function getlink()

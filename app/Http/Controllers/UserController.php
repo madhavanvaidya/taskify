@@ -12,6 +12,7 @@ use GuzzleHttp\Promise\TaskQueue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Permission\Contracts\Role as ContractsRole;
 
 class UserController extends Controller
 {
@@ -26,7 +27,7 @@ class UserController extends Controller
         $clients = Client::all();
         $projects = Project::all();
         $tasks = Task::all();
-        
+
         return view('index', ['users' => $users, 'clients' => $clients, 'projects' => $projects, 'tasks' => $tasks]);
     }
 
@@ -37,7 +38,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $roles = Role::all();
+        return view('users.create_user', ['roles' => $roles]);
     }
 
     /**
@@ -52,19 +54,28 @@ class UserController extends Controller
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email'],
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'address' => 'required',
+            'phone' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
+            'zip' => 'required',
         ]);
 
         $formFields['password'] = bcrypt($formFields['password']);
-        $formFields['photo'] = "photos/no-image.png";
-        
+
+        if ($request->hasFile('photo')) {
+            $formFields['photo'] = $request->file('photo')->store('photos', 'public');
+        } else {
+            $formFields['photo'] = "photos/no-image.png";
+        }
 
         $user = User::create($formFields);
-        $user->assignRole('member');
-        
-        auth()->login($user);
 
-        return redirect('/')->with('message', 'Registered Successfully!');
+        $user->assignRole($request->input('role'));
+
+        return redirect('/users/show')->with('message', 'User Registered Successfully!');
     }
 
     /**
@@ -90,6 +101,17 @@ class UserController extends Controller
     {
         $roles = Role::all();
         return view('users.account', ['user' => $user, 'roles' => $roles]);
+    }
+
+    public function edit_user($id)
+    {
+        if (auth()->user()->roles->first()->hasPermissionTo('edit_users')) {
+            $user = User::find($id);
+            $roles = Role::all();
+            return view('users.edit_user', ['user' => $user, 'roles' => $roles]);
+        } else {
+            return back()->with('error', 'You are not Authorised!');
+        }
     }
 
     /**
@@ -119,6 +141,33 @@ class UserController extends Controller
         return back()->with('message', 'Profile details updated Successfully!');
     }
 
+    public function update_user(Request $request, $id)
+    {
+
+        $formFields = $request->validate([
+            'first_name' => ['required'],
+            'last_name' => ['required'],
+            'phone' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
+            'zip' => 'required',
+        ]);
+        $user = User::find($id);
+
+        if ($request->hasFile('upload')) {
+            $old = User::find($id);
+            Storage::disk('public')->delete($old->photo);
+            $formFields['photo'] = $request->file('upload')->store('photos', 'public');
+        }
+
+        $user->update($formFields);
+        $user->syncRoles($request->input('role'));
+
+        return redirect('/users/show')->with('message', 'Profile details updated Successfully!');
+    }
+
     public function update_photo(Request $request, $id)
     {
 
@@ -143,9 +192,17 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
+        return redirect('/');
+    }
 
-
-        return redirect('/login');
+    public function delete_user($id)
+    {
+        if (auth()->user()->roles->first()->hasPermissionTo('delete_users')) {
+            User::find($id)->delete();
+            return response()->json(['message' => 'User deleted Successfully!']);
+        } else {
+            return response()->json(['error' => 'You are not authorised!'], 404);
+        }
     }
 
     public function logout(Request $request)
@@ -156,7 +213,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function login()
@@ -174,7 +231,7 @@ class UserController extends Controller
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
 
-            return redirect('/');
+            return redirect('/index');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
@@ -208,7 +265,7 @@ class UserController extends Controller
                 'id' => $user->id,
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
-                'role' => "<span class='badge bg-label-" . config('taskhub.role_labels')[$user->getRoleNames()->first()] . " me-1'>" . $user->getRoleNames()->first() . "</span>",
+                'role' => "<span class='badge bg-label-" . (isset(config('taskhub.role_labels')[$user->getRoleNames()->first()]) ? config('taskhub.role_labels')[$user->getRoleNames()->first()] : config('taskhub.role_labels')['default']) . " me-1'>" . $user->getRoleNames()->first() . "</span>",
                 'email' => $user->email,
                 'phone' => $user->phone,
                 'photo' => "<div class='avatar avatar-md pull-up' title='" . $user->first_name . " " . $user->last_name . "'>
@@ -311,7 +368,7 @@ class UserController extends Controller
                     'title' => "<a href='/projects/information/" . $project->id . "'><strong>" . $project->title . "</strong></a>",
                     'users' => $project->users,
                     'clients' => $project->clients,
-                    'status' => "<span class='badge bg-label-" . config('taskhub.project_status_labels')[$project->status] . " me-1'>" . $project->status . "</span>",
+                    'status' => "<span class='badge bg-label-" . $project->status->color . " me-1'>" . $project->status->title . "</span>",
                 ]
             );
 

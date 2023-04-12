@@ -53,7 +53,7 @@
         <div class="layout-container">
 
             <!-- Menu -->
-
+            @auth
             <x-menu />
 
             <!-- Layout container -->
@@ -62,18 +62,27 @@
                 @include('partials._navbar')
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    @auth
+
                     @yield('content')
-                    @else
-                    <div class="w-100 h-100 d-flex align-items-center justify-content-center"><span>You must <a href="/login">Log in</a> or <a href="/register">Register</a> to access taskhub!</span></div>
-                    @endauth
+
+
                 </div>
                 <!-- Content wrapper -->
 
                 <!-- footer -->
                 <x-footer />
                 <!-- / footer -->
-
+                @else
+                <div class="container-xxl container-p-y ">
+                    <div class="misc-wrapper d-flex flex-column align-items-center justif-content-center">
+                        <h2 class="mb-2 mx-2">Session Expired!!!</h2>
+                        <div class="my-5">
+                            <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light" width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png" data-app-light-img="illustrations/page-misc-error-light.png" />
+                        </div>
+                        <a href="{{url('/')}}" class="btn btn-primary">Log In</a>
+                    </div>
+                </div>
+                @endauth
             </div>
 
             <!-- / Layout page -->

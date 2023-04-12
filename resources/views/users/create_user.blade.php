@@ -1,21 +1,21 @@
 @extends('layout')
 
 @section('title')
-<?php echo "New Client" ?>
+<?php echo "New User" ?>
 @endsection
 
 @section('content')
 <div class="container">
     <div class="mt-4">
         <h4 class="fw-bold mb-0">
-            <span class="text-muted fw-light">Clients /</span> Create New Client
+            <span class="text-muted fw-light">Users /</span> Create New User
         </h4>
     </div>
 
     <div class="card mt-4">
         <div class="card-body">
-            <h4 class="fw-bold">New Client</h4>
-            <form action="{{url('/clients/store')}}" method="POST" enctype="multipart/form-data">
+            <h4 class="fw-bold">New User</h4>
+            <form action="{{url('/users/store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="mb-3 col-md-6">
@@ -61,16 +61,6 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 col-md-6">
-                        <label for="company" class="form-label">Company</label>
-                        <input class="form-control" type="text" id="company" name="company" placeholder="Enter Company name">
-
-                        @error('company')
-                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                        @enderror
-
-
-                    </div>
 
                     <div class="mb-3 col-md-6">
                         <label for="password" class="form-label">Password</label>
@@ -92,6 +82,23 @@
 
 
                     </div>
+
+                    <div class="mb-3 col-md-6">
+                                <label class="form-label" for="role">Role</label>
+                                <div class="input-group">
+                                    <select class="form-select text-capitalize" id="role" name="role">
+                                        @foreach ($roles as $role)
+
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                @error('role')
+                                <p class="text-danger text-xs mt-1">{{ $message }}</p>
+                                @enderror
+
+                            </div>
 
                     <div class="mb-3 col-md-6">
                         <label for="address" class="form-label">Address</label>
@@ -149,8 +156,8 @@
                     </div>
 
                     <div class="mb-3 col-md-6">
-                        <label for="profile" class="form-label">Profile Picture</label>
-                        <input class="form-control" type="file" id="profile" name="profile">
+                        <label for="photo" class="form-label">Profile Picture</label>
+                        <input class="form-control" type="file" id="photo" name="profile">
 
                         @error('profile')
                         <p class="text-danger text-xs mt-1">{{ $message }}</p>
@@ -160,7 +167,7 @@
                     </div>
 
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2">Save Client</button>
+                        <button type="submit" class="btn btn-primary me-2">Save User</button>
                         <button type="reset" class="btn btn-outline-secondary">Cancel</button>
                     </div>
 
