@@ -1,4 +1,3 @@
-
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="/index" class="app-brand-link">
@@ -90,11 +89,25 @@
             </a>
         </li>
         @role('admin')
-        <li class="menu-item {{ Request::is('settings') || Request::is('roles/*') ? 'active' : '' }}">
-            <a href="/settings" class="menu-link">
-            <i class='menu-icon tf-icons bx bx-cog'></i>
-                <div>Settings</div>
+        <li class="menu-item {{ Request::is('settings') || Request::is('roles/*') || Request::is('settings/*') ? 'active open' : '' }}">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-box"></i>
+                <div data-i18n="User interface">Settings</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::is('settings') || Request::is('roles/*') ? 'active' : '' }}">
+                    <a href="/settings" class="menu-link">
+                        <i class='menu-icon tf-icons bx bx-cog'></i>
+                        <div>Permissions</div>
+                    </a>
+                </li>
+                <li class="menu-item {{ Request::is('settings/general') ? 'active' : '' }}">
+                    <a href="/settings/general" class="menu-link">
+                        <i class='menu-icon tf-icons bx bx-cog'></i>
+                        <div>General Settings</div>
+                    </a>
+                </li>
+            </ul>
         </li>
         @endrole
     </ul>

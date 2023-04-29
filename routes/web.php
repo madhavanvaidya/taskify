@@ -179,6 +179,8 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
         Route::get('/settings', [RolesController::class, 'index']);
 
+        Route::get('/settings/general', [RolesController::class, 'general_settings']);
+
         Route::delete('/roles/destroy/{id}', [RolesController::class, 'destroy']);
 
         Route::get('/roles/create', [RolesController::class, 'create']);

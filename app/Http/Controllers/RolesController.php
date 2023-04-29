@@ -25,6 +25,17 @@ class RolesController extends Controller
         }
     }
 
+    public function general_settings()
+    {
+        $user = User::find(auth()->user()->id);
+        if ($user->hasRole('admin')) {
+            $roles = Role::all();
+            return view('general_settings', ['roles' => $roles]);
+        } else {
+            return back()->with('error', 'You are not authorised!');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
